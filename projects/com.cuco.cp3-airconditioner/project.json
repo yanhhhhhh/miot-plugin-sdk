@@ -1,0 +1,11 @@
+{ 
+        "package_path": "com.cuco.cp3-airconditioner",
+        "min_sdk_api_level":10055,
+        "developer_id": "",
+        "version_code":1,
+        "create_timestamp": "1637377747101",
+        "entrance_scene":{
+            "action_ids":["21096"],
+            "trigger_ids":[]
+        }
+}

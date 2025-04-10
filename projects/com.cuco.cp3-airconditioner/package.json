@@ -1,0 +1,14 @@
+{
+    "name": "project-com-cuco-cp3-airconditioner",
+    "version": "1.0.55",
+    "scripts": {
+        "start": "node ../../bin/runProject.js"
+    },
+    "dependencies": {
+        "localStorage": "^1.0.4",
+        "lottie-react-native": "2.5.5",
+        "pinyin": "^2.10.2",
+        "react-native-country-code-picker": "^1.3.5",
+        "react-native-section-list-get-item-layout": "^2.2.3"
+    }
+}
