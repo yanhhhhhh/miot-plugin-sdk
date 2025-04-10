@@ -1,7 +1,4 @@
-/*
- * @Author: huayou.fu 
- * @Created date: 2022-01-12 20:11:15 
- */
+
 
 import React from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";

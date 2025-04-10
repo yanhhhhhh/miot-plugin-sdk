@@ -1,7 +1,4 @@
-/*
- * @Author: huayou.fu 
- * @Created date: 2022-01-17 14:08:22 
- */
+
 
 import React from "react";
 import { TouchableOpacity, View, Text, Image } from "react-native";

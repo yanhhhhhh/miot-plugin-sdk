@@ -1,8 +1,4 @@
-/*
- * @Author: huayou.fu 
- * @Created date: 2022-01-12 14:46:27 
- * 柱状统计图
- */
+
 import React from "react";
 import { Dimensions, View, Text, PanResponder } from "react-native";
 import { GSDevWarn } from "../../helper/GSLog";

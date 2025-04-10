@@ -1,7 +1,4 @@
-/*
- * @Author: huayou.fu 
- * @Created date: 2022-01-08 11:40:12 
- */
+
 
 import { ACStateCenter } from "../manager/DeviceManager/GSACStateCenter";
 import { GSLocalize, isCurrentEnglish } from "../manager/LanguageManager/LanguageManager";

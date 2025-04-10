@@ -1,7 +1,4 @@
-/*
- * @Author: huayou.fu 
- * @Created date: 2022-01-13 18:33:02 
- */
+
 import React from "react";
 import { Text, View } from "react-native";
 export const GSDottedLine = ({ width, lineColor = '#E5E5E5', style = {} }) => {

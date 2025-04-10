@@ -1,7 +1,4 @@
-/*
- * @Author: huayou.fu 
- * @Created date: 2022-01-05 11:58:35 
- */
+
 
 import { NavigationBar } from "mhui-rn";
 import React from "react";
