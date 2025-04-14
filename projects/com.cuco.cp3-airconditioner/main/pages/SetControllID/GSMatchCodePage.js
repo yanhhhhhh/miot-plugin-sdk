@@ -228,7 +228,7 @@ export default class GSMatchCodePage extends SafeAreaBaseContainer {
               },
               {
                 text: GSLocalize("acid110"),
-                style: { color: '#00D3BE' },
+                style: { color: '#57B3E7' },
                 callback: () => {
                   this.gotoNextMatchNode(true);
                 }

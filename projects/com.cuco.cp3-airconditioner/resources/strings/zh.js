@@ -148,5 +148,7 @@ module.exports = {
   acid134: '运行中',
   acid135: '舒适',
   acid136: '速冷',
-  acid137: '选择月份'
+  acid137: '选择月份',
+
+  viewMore: '查看更多'
 };

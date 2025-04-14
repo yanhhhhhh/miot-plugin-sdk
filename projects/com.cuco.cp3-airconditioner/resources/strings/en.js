@@ -1,3 +1,5 @@
+const { viewMore } = require('./zh');
+
 module.exports = {
   hello: 'hello，welcome to MIOT Extension development !',
   selfDefineScene: 'custom scene',
@@ -10,12 +12,13 @@ module.exports = {
   acid3: 'On/Off',
   acid4: 'Quick-cool',
   acid5: 'Quick cooling time',
-  acid6: 'Once enabled,the air conditioner is set to maximum fan speed and minimum temperature, and restore the temperature of the last shutdown after the specified time.',
+  acid6:
+    'Once enabled,the air conditioner is set to maximum fan speed and minimum temperature, and restore the temperature of the last shutdown after the specified time.',
   acid7: 'Sleep period',
-  acid8: 'Note：This function is only effective while the air conditioner is cooling or heating.',
+  acid8:
+    'Note：This function is only effective while the air conditioner is cooling or heating.',
   acid9: 'After sleep',
   acid10: 'Keep the current status',
-
 
   acid11: 'Turn off  air conditioner',
   acid12: 'Delay turn off time',
@@ -27,7 +30,6 @@ module.exports = {
   acid18: 'Medium',
   acid19: 'High',
   acid20: 'Swing',
-
 
   acid21: 'Mode',
   acid22: 'Cooling',
@@ -64,7 +66,8 @@ module.exports = {
   acid51: 'Ok',
 
   acid52: 'Change paired air conditioner',
-  acid53: 'After replacement, the set  schedules, and created automation will continue to be in effect. However, since there are functional differences between different air conditioners, these settings may not take effect.',
+  acid53:
+    'After replacement, the set  schedules, and created automation will continue to be in effect. However, since there are functional differences between different air conditioners, these settings may not take effect.',
   acid54: 'Cancel',
   acid55: 'End time',
   acid56: 'Tomorrow',
@@ -84,7 +87,8 @@ module.exports = {
   acid69: 'Swing On',
   acid70: 'Swing Off',
 
-  acid71: 'Air conditioner will change status according to your setting when turn on ',
+  acid71:
+    'Air conditioner will change status according to your setting when turn on ',
   acid72: 'One time',
   acid73: 'Automatically adapts to running mode',
   acid74: 'Low',
@@ -107,7 +111,6 @@ module.exports = {
   acid92: 'Low',
   acid93: 'Delay turning off time',
 
-
   acid94: 'min',
 
   acid95: 'to',
@@ -119,10 +122,9 @@ module.exports = {
   acid101: 'min later',
   acid102: 'Duration can not be less than two hours',
 
-
   acid103: 'Tap the button and confirm whether the air conditioner responds',
-  acid104: 'The device needs some time to respond, please wait a moment after the operation',
-
+  acid104:
+    'The device needs some time to respond, please wait a moment after the operation',
 
   acid108: 'Is the appliance paired correctly?',
   acid109: 'Incorrect',
@@ -137,7 +139,8 @@ module.exports = {
   acid120: 'Matching air conditioning',
   acid121: 'Brand list',
   acid122: 'Search brand',
-  acid123: 'Air conditioners without a status disaplay do not support this function.',
+  acid123:
+    'Air conditioners without a status disaplay do not support this function.',
   acid124: 'Setting',
   acid126: 'Enter',
   acid127: 'Do not disturb',
@@ -150,5 +153,7 @@ module.exports = {
   acid134: 'Running',
   acid135: 'Comfortable',
   acid136: 'Cooling',
-  acid137: 'Select month'
+  acid137: 'Select month',
+
+  viewMore: 'View more',
 };

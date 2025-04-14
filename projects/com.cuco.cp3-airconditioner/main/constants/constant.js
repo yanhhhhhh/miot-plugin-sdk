@@ -1,7 +1,4 @@
-/*
- * @Author: huayou.fu 
- * @Created date: 2021-11-20 11:53:19 
- */
+
 import { Device } from "miot";
 
 export const GSNoop = {}; // 空对象

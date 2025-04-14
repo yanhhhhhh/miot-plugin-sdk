@@ -58,7 +58,7 @@ export const hexToRGBA = (color, opacity = 1) => {
 };
 
 export const GSColors = {
-  mainColor: '#00D3BE'
+  mainColor: '#57B3E7'
 };
 
 export const normalContentWidth = MainScreen.width - 24;

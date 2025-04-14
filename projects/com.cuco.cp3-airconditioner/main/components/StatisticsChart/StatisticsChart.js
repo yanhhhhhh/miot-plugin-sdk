@@ -158,7 +158,7 @@ export default class StaticChart extends React.PureComponent {
                 if (cH < 2) {
                   cH = 2.0;
                 }
-                let bgColor = selectedWhichOne == index ? hexToRGBA('#00D3BE', 1.0) : hexToRGBA('#00D3BE', 0.3);
+                let bgColor = selectedWhichOne == index ? hexToRGBA('#57B3E7', 1.0) : hexToRGBA('#57B3E7', 0.3);
                 return <View key={index} style={{ width: cellW, marginLeft: (index == 0) ? 0 : cellMargin, height: cH, backgroundColor: bgColor }}><Text></Text></View>;
               })
             }

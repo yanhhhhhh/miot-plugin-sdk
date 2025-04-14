@@ -20,7 +20,7 @@ export default class SleepDuringItemCell extends React.PureComponent {
         },
         selected: {
           marginLeft: 27,
-          color: '#00D3BE',
+          color: '#57B3E7',
           fontSize: 16,
           fontWeight: GSFont.Regular,
           lineHeight: 52,

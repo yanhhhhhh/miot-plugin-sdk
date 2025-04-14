@@ -96,7 +96,7 @@ export default class FastCoolingPage extends SafeAreaBaseContainer {
       {/* 开关 */}
       <View style={styles.swithContainer}>
         <Text style = {styles.switchTitle}>{GSLocalize('acid64')}</Text>
-        <Switch value={switchOn} style={styles.switch} tintColor={'#E5E5E5'} onTintColor={'#00D3BE'} onValueChange={(val) => {
+        <Switch value={switchOn} style={styles.switch} tintColor={'#E5E5E5'} onTintColor={'#57B3E7'} onValueChange={(val) => {
           this.onSwitchChange(val);
         }} />
       </View>
@@ -161,14 +161,14 @@ export default class FastCoolingPage extends SafeAreaBaseContainer {
               bgColorNormal: '#F5F5F5'
             },
             rightButtonBgStyle: {
-              bgColorNormal: '#00D3BE'
+              bgColorNormal: '#57B3E7'
             }
           }
         }
         visible={showTimePicker}
         title={GSLocalize('acid5')}
         showSubtitle={false}
-        confirmColor="#00d3be"
+        confirmColor="#57b3e7"
         type={MHDatePicker.TYPE.SINGLE}
         singleType={MHDatePicker.SINGLE_TYPE.MINUTE}
         current={[`${ duration }`]}

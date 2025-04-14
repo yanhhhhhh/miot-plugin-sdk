@@ -414,12 +414,12 @@ export default class ElectricStatisticsPage extends SafeAreaBaseContainer {
           <View style={{ marginTop: 20, width: 204, height: 32, borderRadius: 6, backgroundColor: '#F7F7F7', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
             <TouchableOpacity onPress={() => {
               this.changeType("week");
-            }} style={{ height: 26, width: 99, borderRadius: 6, backgroundColor: chartType == 'week' ? '#00D3BE' : 'transparent', alignItems: 'center', justifyContent: 'center' }}>
+            }} style={{ height: 26, width: 99, borderRadius: 6, backgroundColor: chartType == 'week' ? '#57B3E7' : 'transparent', alignItems: 'center', justifyContent: 'center' }}>
               <Text style={{ color: chartType == 'week' ? selectedTextColor : textColor, lineHeight: 20, fontWeight: GSFont.Semibold, fontSize: 14 }}>{GSLocalize("acid58")}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
               this.changeType("month");
-            }} style={{ marginLeft: 2, height: 26, width: 99, borderRadius: 6, backgroundColor: chartType == 'month' ? '#00D3BE' : 'transparent', alignItems: 'center', justifyContent: 'center' }}>
+            }} style={{ marginLeft: 2, height: 26, width: 99, borderRadius: 6, backgroundColor: chartType == 'month' ? '#57B3E7' : 'transparent', alignItems: 'center', justifyContent: 'center' }}>
               <Text style={{ color: chartType == 'month' ? selectedTextColor : textColor, lineHeight: 20, fontWeight: GSFont.Semibold, fontSize: 14 }}>{GSLocalize("acid59")}</Text>
             </TouchableOpacity>
           </View>

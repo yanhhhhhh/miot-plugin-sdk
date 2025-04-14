@@ -351,7 +351,7 @@ export default class IndicatorLightPage extends SafeAreaBaseContainer {
                   bgColorNormal: '#F5F5F5'
                 },
                 rightButtonBgStyle: {
-                  bgColorNormal: '#00D3BE'
+                  bgColorNormal: '#57B3E7'
                 }
               }
             }
