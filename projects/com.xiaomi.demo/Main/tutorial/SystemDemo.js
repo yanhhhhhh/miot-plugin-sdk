@@ -16,7 +16,7 @@ import { Separator } from 'mhui-rn';
 import { ListItem } from 'miot/ui/ListItem';
 import { ShakeEvent } from "miot/system/shake";
 import Logger from '../Logger';
-import { isAndroid } from "../../../../bin/ABTest/commonPlugin/modules/consts";
+import { isAndroid } from "miot/native";
 
 export const interval = {
   "a": "game",
