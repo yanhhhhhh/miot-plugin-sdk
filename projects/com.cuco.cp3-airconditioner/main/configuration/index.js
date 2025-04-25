@@ -1,6 +1,3 @@
-
-
 export const DeviceConfig = {
-  model: 'cuco.acpartner.cp2pro' // ivtec.acpartner.p7pro
-
+  model: 'ivtec.acpartner.p7pro' // cuco.acpartner.cp2pro
 };

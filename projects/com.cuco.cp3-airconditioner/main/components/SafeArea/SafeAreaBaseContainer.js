@@ -16,7 +16,7 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
       switch: false,
       scrollEnable: true,
       showLoading: false,
-      needBaseScrollView: true,
+      needBaseScrollView: true
     };
   }
 
@@ -30,7 +30,7 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
       <View
         style={[
           styles.container,
-          { backgroundColor: this.baseColor ? this.baseColor : '#ffffff' },
+          { backgroundColor: this.baseColor ? this.baseColor : '#ffffff' }
         ]}
       >
         {/* {
@@ -49,7 +49,7 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
               position: 'absolute',
               marginLeft: (MainScreen.width - 30) / 2.0,
               marginTop: (MainScreen.height - 30) / 2.0,
-              zIndex: 10000,
+              zIndex: 10000
             }}
           />
         )}
@@ -65,8 +65,8 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
                 styles.container,
                 {
                   marginTop: this.naviBar ? 0 : this.topNaviMargin,
-                  backgroundColor: 'transparent',
-                },
+                  backgroundColor: 'transparent'
+                }
               ]}
               showsVerticalScrollIndicator={false}
               alwaysBounceVertical={false}
@@ -79,8 +79,8 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
                 styles.container,
                 {
                   marginTop: this.naviBar ? 0 : this.topNaviMargin,
-                  backgroundColor: 'transparent',
-                },
+                  backgroundColor: 'transparent'
+                }
               ]}
             >
               {this.gsRender()}
@@ -123,7 +123,7 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
   // 设置是否需要底层的ScrollView
   setNeedBaseScroll = (need) => {
     this.setState({
-      needBaseScrollView: need,
+      needBaseScrollView: need
     });
   };
 
@@ -139,7 +139,7 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
     onRightPress = () => {},
     titleStyle = {},
     rightIcon = 'BACK',
-    subtitle = undefined,
+    subtitle = undefined
   }) => {
     this.naviBar = (
       <NavigationBar
@@ -150,20 +150,20 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
             key: NavigationBar.ICON.BACK,
             onPress: () => {
               onback();
-            },
-          },
+            }
+          }
         ]}
         right={
           needRight
             ? [
-                {
-                  key: NavigationBar.ICON[rightIcon],
-                  showDot: this.state.showDot,
-                  onPress: () => {
-                    onRightPress();
-                  },
-                },
-              ]
+              {
+                key: NavigationBar.ICON[rightIcon],
+                showDot: this.state.showDot,
+                onPress: () => {
+                  onRightPress();
+                }
+              }
+            ]
             : undefined
         }
         title={title}
@@ -172,7 +172,7 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
         subtitleStyle={{
           fontSize: 14,
           color: hexToRGBA('#ffffff', 0.8),
-          fontweigt: GSFont.Regular,
+          fontweigt: GSFont.Regular
         }}
         onPressTitle={() => {}}
         gestureEnabled={false}
@@ -190,8 +190,8 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
     color1 = color,
     opacity1 = 0.0
   ) => {
-    let start = `${hexToRGBA(color, opacity)}`;
-    let end = `${hexToRGBA(color1, opacity1)}`;
+    let start = `${ hexToRGBA(color, opacity) }`;
+    let end = `${ hexToRGBA(color1, opacity1) }`;
     this.backgroundView = (
       <LinearGradient colors={[start, end]} style={styles.backgound} />
     );
@@ -205,7 +205,7 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
       color: '#57B3E7',
       opacity: 1.0,
       color1: '#57B3E7',
-      opacity1: 0.0,
+      opacity1: 0.0
     };
     if (GSSystem.isDarkMode()) {
       // 黑暗模式
@@ -227,7 +227,7 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
       color: '#ffffff',
       opacity: 1.0,
       color1: '#ffffff',
-      opacity1: 1.0,
+      opacity1: 1.0
     };
     if (GSSystem.isDarkMode()) {
       // 黑暗模式
@@ -247,13 +247,13 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
 
   setScrollEnable = (enable) => {
     this.setState({
-      scrollEnable: enable,
+      scrollEnable: enable
     });
   };
 
   enableLoadingActivity = (enable) => {
     this.setState({
-      showLoading: enable,
+      showLoading: enable
     });
   };
 }
@@ -261,7 +261,7 @@ export default class SafeAreaBaseContainer extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
   },
 
   // 头部的背景
@@ -270,6 +270,6 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginLeft: 0,
     height: MainScreen.height,
-    position: 'absolute',
-  },
+    position: 'absolute'
+  }
 });

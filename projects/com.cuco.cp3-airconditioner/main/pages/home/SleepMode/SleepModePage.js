@@ -9,7 +9,7 @@ import {
   ListItemWithSwitch,
   MHDatePicker,
   NavigationBar,
-  Separator,
+  Separator
 } from 'mhui-rn';
 import React from 'react';
 import {
@@ -21,7 +21,7 @@ import {
   View,
   PanResponder,
   Animated,
-  TabBarIOS,
+  TabBarIOS
 } from 'react-native';
 import SleepDuringItemCell from '../../../components/cells/SleepDuringItemCell';
 import GSDialogPage from '../../../components/dialog/GSDialog';
@@ -64,7 +64,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
       windValue: SleepModePageControl.windValue,
       afterSleepState: SleepModePageControl.afterSleepState,
       delayTime: SleepModePageControl.delayTime,
-      showToast: false,
+      showToast: false
     };
   }
 
@@ -77,7 +77,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
     this.setState({
       controlBarH0: bH,
       controlBarH1: mH,
-      controlBarH2: eH,
+      controlBarH2: eH
     });
 
     SleepModePageControl.onUpdatePage = (val) => {
@@ -95,7 +95,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
         willEndTime: val.endTime,
         controlBarH0: bH,
         controlBarH1: mH,
-        controlBarH2: eH,
+        controlBarH2: eH
       });
     };
     this.enableLoadingActivity(true);
@@ -157,7 +157,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
           whichOne = 2;
         }
         this.setState({
-          controlBarIndex: whichOne,
+          controlBarIndex: whichOne
         });
         this.moveY = 0;
       },
@@ -180,7 +180,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
           let temp = this.calculateTempForHeight(val);
           this.setState({
             controlBarH0: val,
-            beginTemp: temp,
+            beginTemp: temp
           });
         } else if (controlBarIndex == 1) {
           let val = controlBarH1 - move;
@@ -194,7 +194,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
           let temp = this.calculateTempForHeight(val);
           this.setState({
             controlBarH1: val,
-            middleTemp: temp,
+            middleTemp: temp
           });
         } else {
           let val = controlBarH2 - move;
@@ -208,7 +208,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
           let temp = this.calculateTempForHeight(val);
           this.setState({
             controlBarH2: val,
-            endTemp: temp,
+            endTemp: temp
           });
         }
       },
@@ -221,7 +221,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
 
       onPanResponderTerminate: (evt, gestureState) => {
         this.setBaseSrcollEnable(true);
-      },
+      }
     });
   };
 
@@ -257,7 +257,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
       showWindPicker,
       showAfterSleepPicker,
       showDelayClosePicker,
-      on,
+      on
     } = this.state;
     // 设置导航栏
     this.setDefaultNavibar({
@@ -266,7 +266,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
       titleStyle: {
         color: '#000000',
         fontSize: 18,
-        fontWeight: GSFont.Semibold,
+        fontWeight: GSFont.Semibold
       },
       onback: () => {
         navigatePopPage(this);
@@ -278,7 +278,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
         SleepModePageControl.specSetConfigs(this.state).then((res) => {
           this.enableLoadingActivity(false);
         });
-      },
+      }
     });
     // 设置背景颜色
     this.baseSetBackgroundColor('#FFFFFF');
@@ -332,7 +332,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
       afterSleepState,
       delayTime,
       selectedReatItemIndex,
-      showToast,
+      showToast
     } = this.state;
 
     // 睡眠时段的副标题
@@ -360,19 +360,19 @@ export default class SleepModePage extends SafeAreaBaseContainer {
           containerStyle={{
             width: MainScreen.width,
             height: 72,
-            backgroundColor: 'white',
+            backgroundColor: 'white'
           }}
           titleStyle={{
             textAlign: 'left',
             fontSize: 16,
             color: '#000000',
-            fontWeight: GSFont.Semibold,
+            fontWeight: GSFont.Semibold
           }}
           subtitleStyle={{
             textAlign: 'left',
             fontSize: 13,
             color: '#999999',
-            fontWeight: GSFont.Regular,
+            fontWeight: GSFont.Regular
           }}
           onValueChange={(val) => {
             this.enableLoadingActivity(true);
@@ -381,7 +381,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
               if (result) {
                 HomePagePannelControl.onUpdatePannel({ sleepModeOn: val });
                 this.setState({
-                  on: val,
+                  on: val
                 });
               }
             });
@@ -395,23 +395,23 @@ export default class SleepModePage extends SafeAreaBaseContainer {
         {!!on && (
           <ListItem
             title={GSLocalize('acid7')}
-            subtitle={`${repeatSubTitle} ${startStr}-${endStr}`}
+            subtitle={`${ repeatSubTitle } ${ startStr }-${ endStr }`}
             containerStyle={{
               width: MainScreen.width,
               height: 72,
-              backgroundColor: 'white',
+              backgroundColor: 'white'
             }}
             titleStyle={{
               textAlign: 'left',
               fontSize: 16,
               color: '#000000',
-              fontWeight: GSFont.Semibold,
+              fontWeight: GSFont.Semibold
             }}
             subtitleStyle={{
               textAlign: 'left',
               fontSize: 13,
               color: '#999999',
-              fontWeight: GSFont.Regular,
+              fontWeight: GSFont.Regular
             }}
             onPress={(val) => {
               this.setState({ sleepDuringPickerType: 0 });
@@ -423,24 +423,24 @@ export default class SleepModePage extends SafeAreaBaseContainer {
         {/* 制冷/制热 */}
         {!!on && (
           <ListItem
-            title={`${GSLocalize('acid22')}/${GSLocalize('acid23')}`}
+            title={`${ GSLocalize('acid22') }/${ GSLocalize('acid23') }`}
             subtitle={GSLocalize('acid73')}
             containerStyle={{
               width: MainScreen.width,
               height: 72,
-              backgroundColor: 'white',
+              backgroundColor: 'white'
             }}
             titleStyle={{
               textAlign: 'left',
               fontSize: 16,
               color: '#000000',
-              fontWeight: GSFont.Semibold,
+              fontWeight: GSFont.Semibold
             }}
             subtitleStyle={{
               textAlign: 'left',
               fontSize: 13,
               color: '#999999',
-              fontWeight: GSFont.Regular,
+              fontWeight: GSFont.Regular
             }}
             hideArrow={true}
             showSeparator={false}
@@ -455,24 +455,24 @@ export default class SleepModePage extends SafeAreaBaseContainer {
             containerStyle={{
               width: MainScreen.width,
               height: 72,
-              backgroundColor: 'white',
+              backgroundColor: 'white'
             }}
             titleStyle={{
               textAlign: 'left',
               fontSize: 16,
               color: '#000000',
-              fontWeight: GSFont.Semibold,
+              fontWeight: GSFont.Semibold
             }}
             valueStyle={{
               textAlign: 'left',
               fontSize: 13,
               color: '#999999',
               fontWeight: GSFont.Regular,
-              width: 100,
+              width: 100
             }}
             onPress={() => {
               this.setState({
-                showWindPicker: true,
+                showWindPicker: true
               });
             }}
             showSeparator={false}
@@ -487,17 +487,17 @@ export default class SleepModePage extends SafeAreaBaseContainer {
               containerStyle={{
                 width: MainScreen.width,
                 height: 72,
-                backgroundColor: 'white',
+                backgroundColor: 'white'
               }}
               titleStyle={{
                 textAlign: 'left',
                 fontSize: 16,
                 color: '#000000',
-                fontWeight: GSFont.Semibold,
+                fontWeight: GSFont.Semibold
               }}
               onValueChange={(val) => {
                 this.setState({
-                  swingEnable: val,
+                  swingEnable: val
                 });
               }}
               value={swingEnable}
@@ -515,30 +515,30 @@ export default class SleepModePage extends SafeAreaBaseContainer {
             subtitle={
               afterSleepState == 2
                 ? `${
-                    afterSleepDoTitles[afterSleepState]
-                  } ${delayTime} ${GSLocalize('acid94')}`
+                  afterSleepDoTitles[afterSleepState]
+                } ${ delayTime } ${ GSLocalize('acid94') }`
                 : afterSleepDoTitles[afterSleepState]
             }
             containerStyle={{
               width: MainScreen.width,
               height: 72,
-              backgroundColor: 'white',
+              backgroundColor: 'white'
             }}
             titleStyle={{
               textAlign: 'left',
               fontSize: 16,
               color: '#000000',
-              fontWeight: GSFont.Semibold,
+              fontWeight: GSFont.Semibold
             }}
             subtitleStyle={{
               textAlign: 'left',
               fontSize: 13,
               color: '#999999',
-              fontWeight: GSFont.Regular,
+              fontWeight: GSFont.Regular
             }}
             onPress={(val) => {
               this.setState({
-                showAfterSleepPicker: true,
+                showAfterSleepPicker: true
               });
             }}
             showSeparator={false}
@@ -553,7 +553,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
               lineHeight: 1,
               marginTop: 20,
               backgroundColor: '#E5E5E5',
-              color: '#E5E5E5',
+              color: '#E5E5E5'
             }}
           >
             -
@@ -565,7 +565,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
               marginLeft: 27,
               width: CW,
               height: 236,
-              backgroundColor: 'white',
+              backgroundColor: 'white'
             }}
           >
             {/* 头部 */}
@@ -574,7 +574,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                 width: '100%',
                 height: 42,
                 flexDirection: 'row',
-                alignItems: 'flex-end',
+                alignItems: 'flex-end'
               }}
             >
               <Text
@@ -585,9 +585,9 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                   marginBottom: 8,
                   fontWeight: GSFont.Regular,
                   fontSize: 10,
-                  color: '#7F7F7F',
+                  color: '#7F7F7F'
                 }}
-              >{`${beginTemp}°C`}</Text>
+              >{`${ beginTemp }°C`}</Text>
               <Text
                 style={{
                   width: '50%',
@@ -596,9 +596,9 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                   marginBottom: 8,
                   fontWeight: GSFont.Regular,
                   fontSize: 10,
-                  color: '#7F7F7F',
+                  color: '#7F7F7F'
                 }}
-              >{`${middleTemp}°C`}</Text>
+              >{`${ middleTemp }°C`}</Text>
               <Text
                 style={{
                   width: '25%',
@@ -607,9 +607,9 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                   marginBottom: 8,
                   fontWeight: GSFont.Regular,
                   fontSize: 10,
-                  color: '#7F7F7F',
+                  color: '#7F7F7F'
                 }}
-              >{`${endTemp}°C`}</Text>
+              >{`${ endTemp }°C`}</Text>
             </View>
             {/* 中间 */}
             <View
@@ -617,7 +617,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                 width: '100%',
                 height: maxTempH,
                 flexDirection: 'row',
-                backgroundColor: '#F7F7F7',
+                backgroundColor: '#F7F7F7'
               }}
             >
               {/* left */}
@@ -625,7 +625,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                 style={{
                   width: (CW - 2) * 0.25,
                   height: '100%',
-                  flexDirection: 'column-reverse',
+                  flexDirection: 'column-reverse'
                 }}
               >
                 <View
@@ -634,7 +634,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                     height: controlBarH0,
                     width: '100%',
                     alignItems: 'center',
-                    backgroundColor: '#57B3E7',
+                    backgroundColor: '#57B3E7'
                   }}
                 >
                   <View
@@ -643,7 +643,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                       height: 4,
                       borderRadius: 2,
                       width: 32,
-                      backgroundColor: 'white',
+                      backgroundColor: 'white'
                     }}
                   />
                 </View>
@@ -657,7 +657,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                 style={{
                   width: (CW - 2) * 0.5,
                   height: '100%',
-                  flexDirection: 'column-reverse',
+                  flexDirection: 'column-reverse'
                 }}
               >
                 <View
@@ -666,7 +666,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                     height: controlBarH1,
                     width: '100%',
                     alignItems: 'center',
-                    backgroundColor: '#57B3E7',
+                    backgroundColor: '#57B3E7'
                   }}
                 >
                   <View
@@ -675,7 +675,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                       height: 4,
                       borderRadius: 2,
                       width: 32,
-                      backgroundColor: 'white',
+                      backgroundColor: 'white'
                     }}
                   />
                 </View>
@@ -689,7 +689,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                 style={{
                   width: (CW - 2) * 0.25,
                   height: '100%',
-                  flexDirection: 'column-reverse',
+                  flexDirection: 'column-reverse'
                 }}
               >
                 <View
@@ -698,7 +698,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                     height: controlBarH2,
                     width: '100%',
                     alignItems: 'center',
-                    backgroundColor: '#57B3E7',
+                    backgroundColor: '#57B3E7'
                   }}
                 >
                   <View
@@ -707,7 +707,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                       height: 4,
                       borderRadius: 2,
                       width: 32,
-                      backgroundColor: 'white',
+                      backgroundColor: 'white'
                     }}
                   />
                 </View>
@@ -719,7 +719,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                     position: 'absolute',
                     width: '100%',
                     height: '100%',
-                    backgroundColor: 'transparent',
+                    backgroundColor: 'transparent'
                   }}
                   {...this.createPanResponder(0).panHandlers}
                 ></Animated.View>
@@ -737,7 +737,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                   marginTop: 8,
                   fontWeight: GSFont.Regular,
                   fontSize: 10,
-                  color: '#999999',
+                  color: '#999999'
                 }}
               >
                 {startStr}
@@ -752,7 +752,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                   marginTop: 8,
                   fontWeight: GSFont.Regular,
                   fontSize: 10,
-                  color: '#999999',
+                  color: '#999999'
                 }}
               >
                 {startStr_30}
@@ -766,7 +766,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                   marginTop: 8,
                   fontWeight: GSFont.Regular,
                   fontSize: 10,
-                  color: '#999999',
+                  color: '#999999'
                 }}
               >
                 {endStr_30}
@@ -781,7 +781,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                   marginTop: 8,
                   fontWeight: GSFont.Regular,
                   fontSize: 10,
-                  color: '#999999',
+                  color: '#999999'
                 }}
               >
                 {endStr}
@@ -794,7 +794,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
           GSDottedLine({
             width: MainScreen.width - 54,
             lineColor: '#e5e5e5',
-            style: { marginTop: 10, marginLeft: 27 },
+            style: { marginTop: 10, marginLeft: 27 }
           })}
         {!!on && (
           <Text
@@ -807,7 +807,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
               fontSize: 12,
               fontWeight: GSFont.Regular,
               marginTop: 20,
-              marginLeft: 27,
+              marginLeft: 27
             }}
           >
             {GSLocalize('acid8')}
@@ -825,7 +825,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                 marginLeft: 60,
                 backgroundColor: 'rgba(0,0,0,0.45)',
                 marginTop: MainScreen.centerY(40) - 80,
-                justifyContent: 'center',
+                justifyContent: 'center'
               }}
             >
               <Text
@@ -847,29 +847,29 @@ export default class SleepModePage extends SafeAreaBaseContainer {
       startTime,
       endTime,
       willRepeats,
-      repeats,
+      repeats
     } = this.state;
     if (Math.abs(willStartTime - willEndTime) < 120) {
       this.setState({
         willStartTime: startTime,
         willEndTime: endTime,
         willRepeats: repeats,
-        showToast: true,
+        showToast: true
       });
       setTimeout(() => {
         this.setState({
-          showToast: false,
+          showToast: false
         });
       }, 2000);
     } else {
       this.setState({
         startTime: willStartTime,
         endTime: willEndTime,
-        repeats: willRepeats,
+        repeats: willRepeats
       });
     }
     this.setState({
-      sleepDuringPickerType: -1,
+      sleepDuringPickerType: -1
     });
   };
 
@@ -879,7 +879,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
       willStartTime: startTime,
       willEndTime: endTime,
       willRepeats: repeats,
-      sleepDuringPickerType: -1,
+      sleepDuringPickerType: -1
     });
   };
 
@@ -892,7 +892,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
       endTime,
       selectedReatItemIndex,
       repeats,
-      willRepeats,
+      willRepeats
     } = this.state;
     let startStr = SleepModePageControl.changeMintesToTimeStr(willStartTime);
     let endStr = SleepModePageControl.changeMintesToTimeStr(willEndTime);
@@ -909,23 +909,23 @@ export default class SleepModePage extends SafeAreaBaseContainer {
               containerStyle={{
                 width: MainScreen.width,
                 height: 72,
-                backgroundColor: 'white',
+                backgroundColor: 'white'
               }}
               titleStyle={{
                 textAlign: 'left',
                 fontSize: 16,
                 color: '#000000',
-                fontWeight: GSFont.Semibold,
+                fontWeight: GSFont.Semibold
               }}
               subtitleStyle={{
                 textAlign: 'left',
                 fontSize: 13,
                 color: '#999999',
-                fontWeight: GSFont.Regular,
+                fontWeight: GSFont.Regular
               }}
               onPress={(val) => {
                 this.setState({
-                  sleepDuringPickerType: 1,
+                  sleepDuringPickerType: 1
                 });
               }}
               showSeparator={false}
@@ -937,23 +937,23 @@ export default class SleepModePage extends SafeAreaBaseContainer {
               containerStyle={{
                 width: MainScreen.width,
                 height: 72,
-                backgroundColor: 'white',
+                backgroundColor: 'white'
               }}
               titleStyle={{
                 textAlign: 'left',
                 fontSize: 16,
                 color: '#000000',
-                fontWeight: GSFont.Semibold,
+                fontWeight: GSFont.Semibold
               }}
               subtitleStyle={{
                 textAlign: 'left',
                 fontSize: 13,
                 color: '#999999',
-                fontWeight: GSFont.Regular,
+                fontWeight: GSFont.Regular
               }}
               onPress={(val) => {
                 this.setState({
-                  sleepDuringPickerType: 3,
+                  sleepDuringPickerType: 3
                 });
               }}
               showSeparator={false}
@@ -965,23 +965,23 @@ export default class SleepModePage extends SafeAreaBaseContainer {
               containerStyle={{
                 width: MainScreen.width,
                 height: 72,
-                backgroundColor: 'white',
+                backgroundColor: 'white'
               }}
               titleStyle={{
                 textAlign: 'left',
                 fontSize: 16,
                 color: '#000000',
-                fontWeight: GSFont.Semibold,
+                fontWeight: GSFont.Semibold
               }}
               subtitleStyle={{
                 textAlign: 'left',
                 fontSize: 13,
                 color: '#999999',
-                fontWeight: GSFont.Regular,
+                fontWeight: GSFont.Regular
               }}
               onPress={(val) => {
                 this.setState({
-                  sleepDuringPickerType: 4,
+                  sleepDuringPickerType: 4
                 });
               }}
               showSeparator={false}
@@ -991,7 +991,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
                 width: '100%',
                 height: 44,
                 flexDirection: 'row',
-                justifyContent: 'center',
+                justifyContent: 'center'
               }}
             >
               <TouchableOpacity
@@ -1050,14 +1050,14 @@ export default class SleepModePage extends SafeAreaBaseContainer {
             marginTop: 0,
             width: MainScreen.width,
             height: 52,
-            backgroundColor: 'white',
+            backgroundColor: 'white'
           }}
           titleStyle={{
             textAlign: 'left',
             fontSize: 16,
             color: '#000000',
             fontWeight: GSFont.Regular,
-            height: 20,
+            height: 20
           }}
           onPress={(val) => {
             this.onSelectRepeatValue(3); // 自定义
@@ -1073,7 +1073,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
         customView={contentVieW}
         onHide={() => {
           this.setState({
-            sleepDuringPickerType: 0,
+            sleepDuringPickerType: 0
           });
         }}
       />
@@ -1094,7 +1094,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
           { title: GSLocalize('acid85') },
           { title: GSLocalize('acid86') },
           { title: GSLocalize('acid87') },
-          { title: GSLocalize('acid88') },
+          { title: GSLocalize('acid88') }
         ]}
         selectedIndexArray={this.state.repeats}
         color="#57B3E7"
@@ -1104,9 +1104,9 @@ export default class SleepModePage extends SafeAreaBaseContainer {
             style: { color: '#F5F5F5' },
             callback: (result) => {
               this.setState({
-                sleepDuringPickerType: 0, // -1
+                sleepDuringPickerType: 0 // -1
               });
-            },
+            }
           },
           {
             text: GSLocalize('acid51'),
@@ -1116,15 +1116,15 @@ export default class SleepModePage extends SafeAreaBaseContainer {
               this.setState({
                 sleepDuringPickerType: 0, // -1
                 selectedReatItemIndex: 3,
-                willRepeats: result,
+                willRepeats: result
               });
-            },
-          },
+            }
+          }
         ]}
         canDismiss={() => {}}
         onDismiss={() => {
           this.setState({
-            sleepDuringPickerType: 0, // -1
+            sleepDuringPickerType: 0 // -1
           });
         }}
       />
@@ -1151,12 +1151,12 @@ export default class SleepModePage extends SafeAreaBaseContainer {
             sleepDuringPickerType: 0, // -1
             willStartTime: SleepModePageControl.changeArrayToMinutes(
               res.rawArray
-            ),
+            )
           });
         }}
         onDismiss={(_) => {
           this.setState({
-            sleepDuringPickerType: 0, // -1
+            sleepDuringPickerType: 0 // -1
           });
         }}
       />
@@ -1184,12 +1184,12 @@ export default class SleepModePage extends SafeAreaBaseContainer {
             sleepDuringPickerType: 0, // -1
             willEndTime: SleepModePageControl.changeArrayToMinutes(
               res.rawArray
-            ),
+            )
           });
         }}
         onDismiss={(_) => {
           this.setState({
-            sleepDuringPickerType: 0, // -1
+            sleepDuringPickerType: 0 // -1
           });
         }}
       />
@@ -1201,7 +1201,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
     GSLocalize('acid16'),
     GSLocalize('acid92'),
     GSLocalize('acid91'),
-    GSLocalize('acid90'),
+    GSLocalize('acid90')
   ];
   windPickerView = () => {
     let speeds = SleepModePageControl.windSpeeds();
@@ -1219,12 +1219,12 @@ export default class SleepModePage extends SafeAreaBaseContainer {
         selectedIndexArray={[this.state.windValue]}
         onDismiss={() => {
           this.setState({
-            showWindPicker: false,
+            showWindPicker: false
           });
         }}
         onSelect={(value) => {
           this.setState({
-            windValue: value[0],
+            windValue: value[0]
           });
         }}
       />
@@ -1256,19 +1256,19 @@ export default class SleepModePage extends SafeAreaBaseContainer {
             marginTop: 0,
             width: MainScreen.width,
             height: 52,
-            backgroundColor: 'white',
+            backgroundColor: 'white'
           }}
           titleStyle={{
             textAlign: 'left',
             fontSize: 16,
             color: afterSleepState == 2 ? '#57B3E7' : '#000000',
             fontWeight: GSFont.Regular,
-            height: 20,
+            height: 20
           }}
           onPress={(val) => {
             this.onSelectAfterSleep(2);
           }}
-          value={`${delayTime}${GSLocalize('acid94')}`}
+          value={`${ delayTime }${ GSLocalize('acid94') }`}
           valueStyle={{ width: 100 }}
           showSeparator={false}
         />
@@ -1281,7 +1281,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
         customView={contentVieW}
         onHide={() => {
           this.setState({
-            showAfterSleepPicker: false,
+            showAfterSleepPicker: false
           });
         }}
       />
@@ -1298,24 +1298,24 @@ export default class SleepModePage extends SafeAreaBaseContainer {
             color: '#333333',
             fontSize: 16,
             lineHeight: 22,
-            fontWeight: GSFont.Semibold,
+            fontWeight: GSFont.Semibold
           },
           leftButtonStyle: {
             color: '#333333',
             fontWeight: GSFont.Semibold,
-            fontSize: 14,
+            fontSize: 14
           },
           rightButtonStyle: {
             color: '#FFFFFF',
             fontWeight: GSFont.Semibold,
-            fontSize: 14,
+            fontSize: 14
           },
           leftButtonBgStyle: {
-            bgColorNormal: '#F5F5F5',
+            bgColorNormal: '#F5F5F5'
           },
           rightButtonBgStyle: {
-            bgColorNormal: '#57B3E7',
-          },
+            bgColorNormal: '#57B3E7'
+          }
         }}
         visible={true}
         title={GSLocalize('acid93')}
@@ -1323,7 +1323,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
         confirmColor="#57b3e7"
         type={MHDatePicker.TYPE.SINGLE}
         singleType={MHDatePicker.SINGLE_TYPE.MINUTE}
-        current={[`${this.state.delayTime}`]}
+        current={[`${ this.state.delayTime }`]}
         min={['1']}
         max={['59']}
         onSelect={(res) => {
@@ -1333,7 +1333,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
           this.setState({
             showDelayClosePicker: false,
             afterSleepState: 2,
-            delayTime: parseInt(res.rawArray[0]),
+            delayTime: parseInt(res.rawArray[0])
           });
         }}
         onDismiss={(val) => {
@@ -1345,7 +1345,7 @@ export default class SleepModePage extends SafeAreaBaseContainer {
           }
           this.setState({
             showDelayClosePicker: false,
-            showAfterSleepPicker: true,
+            showAfterSleepPicker: true
           });
         }}
       />
@@ -1357,12 +1357,12 @@ export default class SleepModePage extends SafeAreaBaseContainer {
       this.setState({
         showAfterSleepPicker: false,
         showDelayClosePicker: true,
-        afterSleepState: index,
+        afterSleepState: index
       });
     } else {
       this.setState({
         afterSleepState: index,
-        showAfterSleepPicker: false,
+        showAfterSleepPicker: false
       });
     }
   };
@@ -1371,14 +1371,14 @@ export default class SleepModePage extends SafeAreaBaseContainer {
     if (index == 3) {
       // 显示自定义重复
       this.setState({
-        sleepDuringPickerType: 2,
+        sleepDuringPickerType: 2
       });
     } else {
       // 选中，每天，工作日，周末
       this.setState({
         selectedReatItemIndex: index,
         willRepeats: SleepModePageControl.repeatsOfType(index),
-        sleepDuringPickerType: 0,
+        sleepDuringPickerType: 0
       });
     }
   };
@@ -1388,26 +1388,26 @@ const maxTempH = 160.0;
 const afterSleepDoTitles = [
   GSLocalize('acid11'),
   GSLocalize('acid10'),
-  GSLocalize('acid93'),
+  GSLocalize('acid93')
 ];
 const CW = MainScreen.width - 54; // content width.
 const styles = StyleSheet.create({
   container: {
     width: MainScreen.width,
     height: '100%',
-    backgroundColor: 'white', // #4d85fe
+    backgroundColor: 'white' // #4d85fe
   },
 
   cancelButtonText: {
     color: '#333333',
     fontWeight: GSFont.Semibold,
-    fontSize: 14,
+    fontSize: 14
   },
 
   confirmButtonText: {
     color: '#FFFFFF',
     fontWeight: GSFont.Semibold,
-    fontSize: 14,
+    fontSize: 14
   },
 
   leftButtonBgStyle: {
@@ -1416,7 +1416,7 @@ const styles = StyleSheet.create({
     height: 44,
     borderRadius: 22,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
 
   rightButtonBgStyle: {
@@ -1426,8 +1426,8 @@ const styles = StyleSheet.create({
     height: 44,
     borderRadius: 22,
     justifyContent: 'center',
-    alignItems: 'center',
-  },
+    alignItems: 'center'
+  }
 });
 
 const datePickerStyle = {
@@ -1435,27 +1435,27 @@ const datePickerStyle = {
     color: '#333333',
     fontSize: 16,
     lineHeight: 22,
-    fontWeight: GSFont.Semibold,
+    fontWeight: GSFont.Semibold
   },
   leftButtonStyle: {
     color: '#333333',
     fontWeight: GSFont.Semibold,
-    fontSize: 14,
+    fontSize: 14
   },
   rightButtonStyle: {
     color: '#FFFFFF',
     fontWeight: GSFont.Semibold,
-    fontSize: 14,
+    fontSize: 14
   },
   leftButtonBgStyle: {
-    bgColorNormal: '#F5F5F5',
+    bgColorNormal: '#F5F5F5'
   },
   rightButtonBgStyle: {
-    bgColorNormal: '#57B3E7',
+    bgColorNormal: '#57B3E7'
   },
   subTitleStyle: {
     color: '#666666',
     fontWeight: GSFont.Regular,
-    fontSize: 14,
-  },
+    fontSize: 14
+  }
 };

@@ -11,13 +11,13 @@ import {
   Image,
   SectionList,
   Text,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 import { GSIRAirconditionerMgr } from '../../manager/DeviceManager/GSIRAirconditionerMgr';
 import {
   GSLocalize,
   isCurrentChinese,
-  isCurrentEnglish,
+  isCurrentEnglish
 } from '../../manager/LanguageManager/LanguageManager';
 import { navigatePopPage, navigatePushPage } from '../../navigate';
 import { MainScreen } from '../../styles';
@@ -31,14 +31,14 @@ export default class GSBrandsSectionListPage extends SafeAreaBaseContainer {
     super(props);
     this.state = {
       brandSections: [],
-      sectionIndex: 0,
+      sectionIndex: 0
     };
 
     this.getItemLayout = sectionListGetItemLayout({
       getItemHeight: (rowData, sectionIndex, rowIndex) => sectionItemHeight,
       getSeparatorHeight: () => 0, // PixelRatio.get(), // The height of your separators
       getSectionHeaderHeight: () => sectionHeaderHeight, // The height of your section headers
-      getSectionFooterHeight: () => 0, // The height of your section footers
+      getSectionFooterHeight: () => 0 // The height of your section footers
     });
   }
 
@@ -53,11 +53,11 @@ export default class GSBrandsSectionListPage extends SafeAreaBaseContainer {
       titleStyle: {
         color: '#000000',
         fontSize: 18,
-        fontWeight: GSFont.Semibold,
+        fontWeight: GSFont.Semibold
       },
       onback: () => {
         navigatePopPage(this);
-      },
+      }
     });
 
     // 请求数据
@@ -82,8 +82,8 @@ export default class GSBrandsSectionListPage extends SafeAreaBaseContainer {
           // }]
           brands.map((val) => {
             let pinyin = isCurrentChinese()
-              ? `${val.pinyin}`
-              : `${val.en_name}`;
+              ? `${ val.pinyin }`
+              : `${ val.en_name }`;
             let first = pinyin.substring(0, 1).toUpperCase();
             let tSection = undefined;
             brandSections.map((sec) => {
@@ -110,7 +110,7 @@ export default class GSBrandsSectionListPage extends SafeAreaBaseContainer {
           brandSections = sortBrandSctions;
           this.scrollToIndex = 0;
           this.setState({
-            brandSections,
+            brandSections
           });
         }
       })
@@ -177,7 +177,7 @@ export default class GSBrandsSectionListPage extends SafeAreaBaseContainer {
           navigatePushPage(this, 'GSMatchCode', {
             brandInfo: item,
             matchNodes: res.nodes,
-            from: this.props.navigation.state.params.from,
+            from: this.props.navigation.state.params.from
           });
         }
       })
@@ -190,13 +190,13 @@ export default class GSBrandsSectionListPage extends SafeAreaBaseContainer {
     let sl: SectionList = this.sectionList;
 
     this.setState({
-      sectionIndex: index,
+      sectionIndex: index
     });
     !!sl &&
       sl.scrollToLocation({
         animated: true,
         itemIndex: 0,
-        sectionIndex: index,
+        sectionIndex: index
       });
   };
 
@@ -241,7 +241,7 @@ export default class GSBrandsSectionListPage extends SafeAreaBaseContainer {
             onPress={() => {
               navigatePushPage(this, 'GSSectionListSearch', {
                 brandSections,
-                from: this.props.navigation.state.params.from,
+                from: this.props.navigation.state.params.from
               });
             }}
             style={{
@@ -250,7 +250,7 @@ export default class GSBrandsSectionListPage extends SafeAreaBaseContainer {
               backgroundColor: 'white',
               borderRadius: 8,
               flexDirection: 'row',
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           >
             <Image
@@ -302,7 +302,7 @@ export default class GSBrandsSectionListPage extends SafeAreaBaseContainer {
               marginLeft: MainScreen.width - 20,
               alignItems: 'center',
               justifyContent: 'center',
-              zIndex: 100,
+              zIndex: 100
             }}
           >
             {keys.map((val, index) => (
@@ -310,7 +310,7 @@ export default class GSBrandsSectionListPage extends SafeAreaBaseContainer {
                 key={val}
                 style={{
                   width: '100%',
-                  height: 18,
+                  height: 18
                 }}
                 onPress={() => {
                   this.onPress(index);
@@ -322,7 +322,7 @@ export default class GSBrandsSectionListPage extends SafeAreaBaseContainer {
                     textAlign: 'center',
                     fontSize: 14,
                     fontWeight: GSFont.Semibold,
-                    color: index == this.scrollToIndex ? '#4FBCFF' : '#999999',
+                    color: index == this.scrollToIndex ? '#4FBCFF' : '#999999'
                   }}
                 >
                   {val}
@@ -343,20 +343,20 @@ const styles = StyleSheet.create({
     width: MainScreen.width,
     // height: MainScreen.height,
     flex: 1,
-    backgroundColor: '#e8e8e8',
+    backgroundColor: '#e8e8e8'
   },
 
   searchContainer: {
     height: 60,
     width: MainScreen.width,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
 
   itemContainer: {
     height: sectionItemHeight,
     justifyContent: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
   },
 
   itemStyle: {
@@ -368,12 +368,12 @@ const styles = StyleSheet.create({
     fontWeight: GSFont.Semibold,
     fontSize: 15,
     lineHeight: sectionItemHeight,
-    marginLeft: 20,
+    marginLeft: 20
   },
 
   sectionHeaderContainer: {
     height: sectionHeaderHeight,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
 
     // backgroundColor: '#f5f5f5',
   },
@@ -387,6 +387,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginLeft: 20,
     width: MainScreen.width - 40,
-    marginTop: 10,
-  },
+    marginTop: 10
+  }
 });

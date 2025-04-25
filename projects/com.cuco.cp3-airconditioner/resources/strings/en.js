@@ -155,5 +155,5 @@ module.exports = {
   acid136: 'Cooling',
   acid137: 'Select month',
 
-  viewMore: 'View more',
+  viewMore: 'View more'
 };
