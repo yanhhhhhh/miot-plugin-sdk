@@ -21,7 +21,8 @@ import {
   View,
   PanResponder,
   Animated,
-  TabBarIOS
+  TabBarIOS,
+  Image
 } from 'react-native';
 import SleepDuringItemCell from '../../../components/cells/SleepDuringItemCell';
 import GSDialogPage from '../../../components/dialog/GSDialog';
@@ -37,6 +38,7 @@ import { HomePagePannelControl } from '../HomePagePannelControl';
 import { GSImage } from '../../../constants/image/image';
 import { Facebook } from 'react-content-loader';
 import { isNoop } from '../../../constants/constant';
+import { ChoiceItemWithIcon } from 'miot/ui/ListItem';
 export default class SleepModePage extends SafeAreaBaseContainer {
   constructor(props) {
     super(props);
@@ -1098,6 +1100,8 @@ export default class SleepModePage extends SafeAreaBaseContainer {
         ]}
         selectedIndexArray={this.state.repeats}
         color="#57B3E7"
+        itemStyleType={ChoiceDialog.ITEM_STYLE_TYPE.ICON_RIGHT_ARROW}
+        icon={<Image source={GSImage.rightArrow} />}
         buttons={[
           {
             text: GSLocalize('acid54'),
@@ -1210,11 +1214,13 @@ export default class SleepModePage extends SafeAreaBaseContainer {
     }
     return (
       <ChoiceDialog
+        icon={<Image source={GSImage.rightArrow} />}
         visible={true}
         title={GSLocalize('acid15')}
         options={speeds.map((val) => {
           return { title: this.windSpeedTitles()[val] };
         })}
+        color="#57B3E7"
         canDismiss={() => {}}
         selectedIndexArray={[this.state.windValue]}
         onDismiss={() => {

@@ -1,4 +1,4 @@
-const { viewMore } = require('./zh');
+const { viewMore, aiCase } = require('./zh');
 
 module.exports = {
   hello: 'hello，welcome to MIOT Extension development !',
@@ -8,7 +8,7 @@ module.exports = {
   workModel: 'Operating mode',
   currentMatch: 'current match',
   IndicatorLightStatus: 'light status',
-  acid2: 'DianXiaoKu AC Partner CP2pro',
+  acid2: 'AC Partner CP2pro',
   acid3: 'On/Off',
   acid4: 'Quick-cool',
   acid5: 'Quick cooling time',
@@ -155,5 +155,6 @@ module.exports = {
   acid136: 'Cooling',
   acid137: 'Select month',
 
-  viewMore: 'View more'
+  viewMore: 'View more',
+  aiCase: 'Xiaoai Control',
 };

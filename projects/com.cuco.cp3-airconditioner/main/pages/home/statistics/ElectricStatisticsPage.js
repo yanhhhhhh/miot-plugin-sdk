@@ -64,6 +64,7 @@ export default class ElectricStatisticsPage extends SafeAreaBaseContainer {
         this.setState({ "CurrentPower": res.CurrentPower });
       }
     }).catch((err) => {
+      console.error("err:", err);
      
     });
     this.addListener();

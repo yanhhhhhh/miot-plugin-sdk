@@ -6,7 +6,7 @@ module.exports = {
   workModel: '工作模式',
   currentMatch: '当前匹配',
   IndicatorLightStatus: '指示灯状态',
-  acid2: '电小酷空调伴侣CP2pro',
+  acid2: '空调伴侣CP2pro',
   acid3: '开关',
   acid4: '开机速冷',
   acid5: '速冷时间',
@@ -62,7 +62,8 @@ module.exports = {
   acid51: '确定',
 
   acid52: '更换匹配的空调',
-  acid53: '更换后，已设定的定时、创建的智能等信息将继续保留，但由于不同空调存在功能差异，可能会导致这些设定无法生效，仍更换？',
+  acid53:
+    '更换后，已设定的定时、创建的智能等信息将继续保留，但由于不同空调存在功能差异，可能会导致这些设定无法生效，仍更换？',
   acid54: '取消',
   acid55: '结束时间',
   acid56: '次日',
@@ -106,7 +107,6 @@ module.exports = {
   acid92: '低速',
   acid93: '延迟关闭时间',
 
-
   acid94: '分钟',
 
   acid95: '至',
@@ -120,7 +120,6 @@ module.exports = {
 
   acid103: '点击按钮，然后确定空调是否响应',
   acid104: '设备需要时间来响应你的操作，还请你操作后适当等待一下',
-
 
   acid108: '电器是否正确响应?',
   acid109: '不正确',
@@ -150,5 +149,6 @@ module.exports = {
   acid136: '速冷',
   acid137: '选择月份',
 
-  viewMore: '查看更多'
+  viewMore: '查看更多',
+  aiCase: '小爱语控',
 };

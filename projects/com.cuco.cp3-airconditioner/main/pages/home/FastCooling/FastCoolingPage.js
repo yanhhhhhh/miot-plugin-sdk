@@ -1,18 +1,18 @@
-/*
- * @Author: huayou.fu 
- * @Created date: 2022-01-13 13:41:18 
- */
-
-import { ListItem, MHCard, MHDatePicker, Separator, Switch } from "mhui-rn";
-import React from "react";
-import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
-import SafeAreaBaseContainer from "../../../components/SafeArea/SafeAreaBaseContainer";
-import { GSImage } from "../../../constants/image/image";
-import { navigatePopPage, navigatePushPage } from "../../../navigate";
-import { GSColors, IconStyles, MainScreen, normalContentWidth } from "../../../styles";
-import { GSFont } from "../../../styles/font";
-import { GSLocalize } from "../../../manager/LanguageManager/LanguageManager";
-import { FastCoolingPageControl } from "./FastCoolingPageControl";
+import { ListItem, MHCard, MHDatePicker, Separator, Switch } from 'mhui-rn';
+import React from 'react';
+import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
+import SafeAreaBaseContainer from '../../../components/SafeArea/SafeAreaBaseContainer';
+import { GSImage } from '../../../constants/image/image';
+import { navigatePopPage, navigatePushPage } from '../../../navigate';
+import {
+  GSColors,
+  IconStyles,
+  MainScreen,
+  normalContentWidth
+} from '../../../styles';
+import { GSFont } from '../../../styles/font';
+import { GSLocalize } from '../../../manager/LanguageManager/LanguageManager';
+import { FastCoolingPageControl } from './FastCoolingPageControl';
 
 export default class FastCoolingPage extends SafeAreaBaseContainer {
   constructor(props) {
@@ -47,23 +47,23 @@ export default class FastCoolingPage extends SafeAreaBaseContainer {
         showTimePicker: false
       });
     }
-  }
+  };
 
   onSwitchChange = (val) => {
     this.enableLoadingActivity(true);
     FastCoolingPageControl.setSwithOn(val);
-  }
+  };
 
-  onConfirmSet = async() => { 
+  onConfirmSet = async() => {
     this.enableLoadingActivity(true);
     const { switchOn, duration } = this.state;
     await FastCoolingPageControl.setSwithOnAndDuration(switchOn, duration);
     this.enableLoadingActivity(false);
-  }
+  };
 
   /**
-        * 为了实现 头部设置的渲染，必须实现render
-        */
+   * 为了实现 头部设置的渲染，必须实现render
+   */
   render() {
     // 设置导航栏
     this.setDefaultNavibar({
@@ -92,55 +92,149 @@ export default class FastCoolingPage extends SafeAreaBaseContainer {
   gsRender() {
     const { switchOn, showTimePicker, duration } = this.state;
     let minTemp = FastCoolingPageControl.getMinTemp();
-    return <View style={styles.container}>
-      {/* 开关 */}
-      <View style={styles.swithContainer}>
-        <Text style = {styles.switchTitle}>{GSLocalize('acid64')}</Text>
-        <Switch value={switchOn} style={styles.switch} tintColor={'#E5E5E5'} onTintColor={'#57B3E7'} onValueChange={(val) => {
-          this.onSwitchChange(val);
-        }} />
-      </View>
-      <Text style = {{ lineHeight: 16, textAlign: 'left', fontWeight: GSFont.Regular, fontSize: 12, color: '#999999' }}>{GSLocalize('acid6')}</Text>
-      {
-        switchOn && <View style ={styles.onContainer}>
-          <ListItem
-            title={GSLocalize('acid5')}
-            value={`${ duration }${ GSLocalize('acid94') }`}
-            containerStyle={{ width: MainScreen.width, height: 100, backgroundColor: 'white' }}
-            titleStyle={{ textAlign: 'left', fontSize: 16, color: '#000000', fontWeight: GSFont.Semibold }}
-            valueStyle={{ fontSize: 13, color: '#999999', textAlign: 'right', width: 100 }}
-            onPress={() => {
-              this.setState({
-                showTimePicker: true
-              });
+    return (
+      <View style={styles.container}>
+        {/* 开关 */}
+        <View style={styles.swithContainer}>
+          <Text style={styles.switchTitle}>{GSLocalize('acid64')}</Text>
+          <Switch
+            value={switchOn}
+            style={styles.switch}
+            tintColor={'#E5E5E5'}
+            onTintColor={'#57B3E7'}
+            onValueChange={(val) => {
+              this.onSwitchChange(val);
             }}
-            showSeparator={true}
-            separator={<Separator style={{ marginLeft: 27, width: CW }} />}
           />
-          <View style={{ marginTop: 20, height: 60, width: CW, justifyContent: 'center' }}>
-            <Text style={styles.switchTitle}>{GSLocalize('acid97')}</Text>
-          </View>
-          <View style={styles.chartContainer}>
-            <View style = {{ backgroundColor: 'white' }}>
-              <Image style={{ width: 321, height: 180 }} source={GSImage.fastCoolingChart} />
-              <Text style={{ position: 'absolute', ...styles.topText, marginLeft: 16 }}>{GSLocalize('acid98')}</Text>
-              <Text style={{ position: 'absolute', ...styles.topText, width: 321, marginTop: 50, textAlign: 'right' }}>{GSLocalize('acid99')}</Text>
-              <View style={{ position: 'absolute', marginTop: 180 - 30, marginLeft: (321 - 242) / 2.0, width: 242, height: 30, justifyContent: 'space-between', flexDirection: 'row' }}>
-                <Text style={{ ...styles.bottomText, width: 50, textAlign: 'center', lineHeight: 32 }}>{`${ minTemp }°C`}</Text>
-                <Text style={{ ...styles.bottomText, width: 50, textAlign: 'right', lineHeight: 32 }}>{`${ minTemp }°C`}</Text>
+        </View>
+        <Text
+          style={{
+            lineHeight: 16,
+            textAlign: 'left',
+            fontWeight: GSFont.Regular,
+            fontSize: 12,
+            color: '#999999'
+          }}
+        >
+          {GSLocalize('acid6')}
+        </Text>
+        {switchOn && (
+          <View style={styles.onContainer}>
+            <ListItem
+              title={GSLocalize('acid5')}
+              value={`${ duration }${ GSLocalize('acid94') }`}
+              containerStyle={{
+                width: MainScreen.width,
+                height: 100,
+                backgroundColor: 'white'
+              }}
+              titleStyle={{
+                textAlign: 'left',
+                fontSize: 16,
+                color: '#000000',
+                fontWeight: GSFont.Semibold
+              }}
+              valueStyle={{
+                fontSize: 13,
+                color: '#999999',
+                textAlign: 'right',
+                width: 100
+              }}
+              onPress={() => {
+                this.setState({
+                  showTimePicker: true
+                });
+              }}
+              showSeparator={true}
+              separator={<Separator style={{ marginLeft: 27, width: CW }} />}
+            />
+            <View
+              style={{
+                marginTop: 20,
+                height: 60,
+                width: CW,
+                justifyContent: 'center'
+              }}
+            >
+              <Text style={styles.switchTitle}>{GSLocalize('acid97')}</Text>
+            </View>
+            <View style={styles.chartContainer}>
+              <View style={{ backgroundColor: 'white' }}>
+                <Image
+                  style={{ width: 321, height: 180 }}
+                  source={GSImage.fastCoolingChart}
+                />
+                <Text
+                  style={{
+                    position: 'absolute',
+                    ...styles.topText,
+                    marginLeft: 16
+                  }}
+                >
+                  {GSLocalize('acid98')}
+                </Text>
+                <Text
+                  style={{
+                    position: 'absolute',
+                    ...styles.topText,
+                    width: 321,
+                    marginTop: 50,
+                    textAlign: 'right'
+                  }}
+                >
+                  {GSLocalize('acid99')}
+                </Text>
+                <View
+                  style={{
+                    position: 'absolute',
+                    marginTop: 180 - 30,
+                    marginLeft: (321 - 242) / 2.0,
+                    width: 242,
+                    height: 30,
+                    justifyContent: 'space-between',
+                    flexDirection: 'row'
+                  }}
+                >
+                  <Text
+                    style={{
+                      ...styles.bottomText,
+                      width: 50,
+                      textAlign: 'center',
+                      lineHeight: 32
+                    }}
+                  >{`${ minTemp }°C`}</Text>
+                  <Text
+                    style={{
+                      ...styles.bottomText,
+                      width: 50,
+                      textAlign: 'right',
+                      lineHeight: 32
+                    }}
+                  >{`${ minTemp }°C`}</Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  height: 40,
+                  width: 321,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
+                }}
+              >
+                <Text style={styles.chartBottomText}>
+                  {GSLocalize('acid132')}
+                </Text>
+                <Text style={styles.chartBottomText}>{`${ duration }${ GSLocalize(
+                  'acid94'
+                ) }`}</Text>
               </View>
             </View>
-            <View style = {{ height: 40, width: 321, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style = {styles.chartBottomText}>{GSLocalize('acid132')}</Text>
-              <Text style = {styles.chartBottomText}>{`${ duration }${ GSLocalize('acid94') }`}</Text>
-            </View>
           </View>
-        </View>
-      }
-      <MHDatePicker
-        animationType="fade"
-        datePickerStyle = {
-          {
+        )}
+        <MHDatePicker
+          animationType="fade"
+          datePickerStyle={{
             titleStyle: {
               color: '#333333',
               fontSize: 16,
@@ -163,27 +257,27 @@ export default class FastCoolingPage extends SafeAreaBaseContainer {
             rightButtonBgStyle: {
               bgColorNormal: '#57B3E7'
             }
-          }
-        }
-        visible={showTimePicker}
-        title={GSLocalize('acid5')}
-        showSubtitle={false}
-        confirmColor="#57b3e7"
-        type={MHDatePicker.TYPE.SINGLE}
-        singleType={MHDatePicker.SINGLE_TYPE.MINUTE}
-        current={[`${ duration }`]}
-        min={['1']}
-        max={['60']}
-        onSelect={(res) => {
-          this.onSelectDuration(res);
-        }}
-        onDismiss={(_) => {
-          this.setState({
-            showTimePicker: false
-          });
-        }}
-      />
-    </View>;
+          }}
+          visible={showTimePicker}
+          title={GSLocalize('acid5')}
+          showSubtitle={false}
+          confirmColor="#57b3e7"
+          type={MHDatePicker.TYPE.SINGLE}
+          singleType={MHDatePicker.SINGLE_TYPE.MINUTE}
+          current={[`${ duration }`]}
+          min={['1']}
+          max={['60']}
+          onSelect={(res) => {
+            this.onSelectDuration(res);
+          }}
+          onDismiss={(_) => {
+            this.setState({
+              showTimePicker: false
+            });
+          }}
+        />
+      </View>
+    );
   }
 }
 
@@ -239,7 +333,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#999999'
   },
-    
+
   bottomText: {
     height: 30,
     width: 100,

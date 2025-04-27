@@ -9,9 +9,9 @@ import {
   NavigationBar,
   Separator,
   SlideGear,
-  Switch
+  Switch,
 } from 'mhui-rn';
-import { Device, Service, DeviceEvent } from 'miot';
+import { Device, Service, DeviceEvent, Host } from 'miot';
 import React from 'react';
 import {
   View,
@@ -19,7 +19,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  Platform
+  Platform,
 } from 'react-native';
 import SafeAreaBaseContainer from '../../components/SafeArea/SafeAreaBaseContainer';
 import { GSSpec, WIND } from '../../constants';
@@ -40,11 +40,13 @@ import { GSSystem } from '../../configuration/system';
 import { HomePagePannelControl } from './HomePagePannelControl';
 import {
   GSLocalize,
-  ExchangeTxtPosition
+  ExchangeTxtPosition,
 } from '../../manager/LanguageManager/LanguageManager';
 import { DateManagerMgr } from '../../helper/date/date';
 import { LocalStorageMgr } from '../../manager/LocalStorageManager/LocalStorageManager';
 import { PackageEvent } from 'miot/Package';
+
+import { CucoDevice } from '../../constants/constant';
 export default class HomePage extends SafeAreaBaseContainer {
   constructor(props) {
     super(props);
@@ -69,7 +71,8 @@ export default class HomePage extends SafeAreaBaseContainer {
       supportPannelLight: HomePagePannelControl.supportPannelLight, // 是否支持面板开关
       fastColdOn: HomePagePannelControl.fastColdOn, // 速冷开关
       onTimeControlVal: HomePagePannelControl.onTimeControlVal, // 速冷开关
-      onDelayControlVal: HomePagePannelControl.onDelayControlVal
+      onDelayControlVal: HomePagePannelControl.onDelayControlVal,
+      isVoiceDevice: Device.isVoiceDevice
     };
   }
 
@@ -82,6 +85,7 @@ export default class HomePage extends SafeAreaBaseContainer {
     // }).catch((err) => {
 
     // });
+  
     DateManagerMgr.getDayPowerNumber().then((res) => {
       console.log(
         '>>>>>>>>>>>>>>>>>>>>>>>>>::::dddddddddddddddddddddddddddddddddddd::',
@@ -89,19 +93,25 @@ export default class HomePage extends SafeAreaBaseContainer {
       );
       let totalMonthPower = DateManagerMgr.CalculateTotalPower(res);
       LocalStorageMgr.set(
-        `${ Device.deviceID }_ElectricQuantity_${ DateManagerMgr.getFullDate() }`,
+        `${Device.deviceID}_ElectricQuantity_${DateManagerMgr.getFullDate()}`,
         { ElectricQuantity: totalMonthPower.toString() }
       );
       this.setState({ ElectricQuantity: totalMonthPower.toString() });
+    }).catch((err) => {
+      console.log('getDayPowerNumber', err);
     });
     DateManagerMgr.getAllMonthPowerNumber().then((res) => {
       console.log('>>>>>>>>>>>>>>>>>>>>>>>>>::::::', res);
       let totalMonthPower = DateManagerMgr.CalculateTotalPower(res);
       this.setState({ totalMonthElectricity: totalMonthPower.toString() });
       // console.log("month=========================month:================", JSON.stringify(res));
+    }).catch((err) => {
+      console.log('getAllMonthPowerNumber', err);
     });
+    
+
     LocalStorageMgr.get(
-      `${ Device.deviceID }_CurrentPower_${ DateManagerMgr.getFullDate() }`
+      `${Device.deviceID}_CurrentPower_${DateManagerMgr.getFullDate()}`
     )
       .then((res) => {
         console.log(
@@ -112,7 +122,9 @@ export default class HomePage extends SafeAreaBaseContainer {
           this.setState({ CurrentPower: res.CurrentPower });
         }
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log('LocalStorageMgr getDayPowerNumber', err);
+      });
     this.addListener();
   }
 
@@ -154,7 +166,7 @@ export default class HomePage extends SafeAreaBaseContainer {
       }
       if (current_data.key == 'prop.7.6') {
         LocalStorageMgr.set(
-          `${ Device.deviceID }_CurrentPower_${ DateManagerMgr.getFullDate() }`,
+          `${Device.deviceID}_CurrentPower_${DateManagerMgr.getFullDate()}`,
           { CurrentPower: current_data.value[0].toFixed(2) }
         );
         this.setState({ CurrentPower: current_data.value[0].toFixed(2) });
@@ -168,10 +180,14 @@ export default class HomePage extends SafeAreaBaseContainer {
     this.mDeviceReceivedMessages && this.mDeviceReceivedMessages.remove();
   }
   async componentDidMount() {
+    console.log(
+      '小爱语控',
+      Device.isVoiceDevice
+    );
     HomePagePannelControl.onUpdatePannel = (value) => {
       console.log('=========== Home udpate: ', value);
       this.setState({
-        ...value
+        ...value,
       });
       this.animationPlayControl(this.state.powerOn); // 开启动画
     };
@@ -186,6 +202,7 @@ export default class HomePage extends SafeAreaBaseContainer {
   }
 
   componentWillUnmount() {
+    
     !!this.viewAppearListener && this.viewAppearListener.remove();
     HomePagePannelControl.removeListener();
     this.removeListener();
@@ -269,6 +286,12 @@ export default class HomePage extends SafeAreaBaseContainer {
   onFastCoolingPress = () => {
     navigatePushPage(this, 'FastCooling');
   };
+  // 小爱语控
+  onPressAiControl = () => {
+    Host.ui.openProductBaikeWebPage(
+      `https://home.mi.com/webapp/content/baike/product/index.html?model=${CucoDevice.model}#/aiCase`
+    );
+  };
 
   // 安睡模式跳转
   onPressSleepMode = () => {
@@ -292,16 +315,16 @@ export default class HomePage extends SafeAreaBaseContainer {
         did: Device.deviceID,
         piid: GSSpec.siid3.on.piid,
         siid: GSSpec.siid3.on.siid,
-        value: true
-      }
+        value: true,
+      },
     ];
     let offParam = [
       {
         did: Device.deviceID,
         piid: GSSpec.siid3.on.piid,
         siid: GSSpec.siid3.on.siid,
-        value: false
-      }
+        value: false,
+      },
     ];
     let params = {
       onMethod: 'set_properties',
@@ -317,7 +340,7 @@ export default class HomePage extends SafeAreaBaseContainer {
       bothTimerMustBeSet: false,
       showOnTimerType: false,
       showOffTimerType: false,
-      showPeriodTimerType: false
+      showPeriodTimerType: false,
     };
     Service.scene.openTimerSettingPageWithOptions(params);
   }
@@ -329,16 +352,16 @@ export default class HomePage extends SafeAreaBaseContainer {
         did: Device.deviceID,
         piid: GSSpec.siid3.on.piid,
         siid: GSSpec.siid3.on.siid,
-        value: true
-      }
+        value: true,
+      },
     ];
     let offParam = [
       {
         did: Device.deviceID,
         piid: GSSpec.siid3.on.piid,
         siid: GSSpec.siid3.on.siid,
-        value: false
-      }
+        value: false,
+      },
     ];
     let params = {
       onMethod: 'set_properties',
@@ -346,7 +369,7 @@ export default class HomePage extends SafeAreaBaseContainer {
       onParam: JSON.stringify(onParam),
       offParam: JSON.stringify(offParam),
       identify: 'custom',
-      displayName: '自定义名称'
+      displayName: '自定义名称',
     };
     Service.scene.openCountDownPage(true, params);
   }
@@ -368,7 +391,7 @@ export default class HomePage extends SafeAreaBaseContainer {
       rightIcon: 'MORE',
       onRightPress: () => {
         navigatePushPage(this, 'Setting', { from: 'Home' });
-      }
+      },
       // subtitle : subtitle
     });
     // 设置背景颜色
@@ -400,7 +423,7 @@ export default class HomePage extends SafeAreaBaseContainer {
             position: 'absolute',
             width: MainScreen.width,
             height: 500,
-            marginTop: -80
+            marginTop: -80,
           }}
         >
           <LottieView
@@ -441,7 +464,8 @@ export default class HomePage extends SafeAreaBaseContainer {
       supportPannelLight,
       fastColdOn,
       onTimeControlVal,
-      onDelayControlVal
+      onDelayControlVal,
+      isVoiceDevice
     } = this.state;
 
     let showMode = mode;
@@ -519,7 +543,7 @@ export default class HomePage extends SafeAreaBaseContainer {
             <View
               style={[
                 styles.consumptionCell,
-                { width: 1, height: 44, backgroundColor: '#E5E5E5' }
+                { width: 1, height: 44, backgroundColor: '#E5E5E5' },
               ]}
             />
             <View style={styles.consumptionCell}>
@@ -533,7 +557,7 @@ export default class HomePage extends SafeAreaBaseContainer {
             <View
               style={[
                 styles.consumptionCell,
-                { width: 1, height: 44, backgroundColor: '#E5E5E5' }
+                { width: 1, height: 44, backgroundColor: '#E5E5E5' },
               ]}
             />
             <View style={styles.consumptionCell}>
@@ -559,7 +583,7 @@ export default class HomePage extends SafeAreaBaseContainer {
             titleStyle={{
               color: '#333333',
               fontWeight: GSFont.Semibold,
-              fontSize: 18
+              fontSize: 18,
             }}
             cardType={MHCard.CARD_TYPE.NORMAL}
             hideArrow={true}
@@ -579,7 +603,7 @@ export default class HomePage extends SafeAreaBaseContainer {
               width: contentWidth,
               height: 82,
               backgroundColor: 'transparent',
-              marginTop: 0
+              marginTop: 0,
             }}
           />
         </View>
@@ -592,7 +616,7 @@ export default class HomePage extends SafeAreaBaseContainer {
               justifyContent: 'flex-start',
               alignItems: 'center',
               width: contentWidth - 40,
-              height: 42
+              height: 42,
             }}
           >
             <Text style={styles.temControlText}>{GSLocalize('acid65')}</Text>
@@ -601,7 +625,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                 width: 1,
                 height: 14,
                 backgroundColor: '#999999',
-                marginLeft: 6
+                marginLeft: 6,
               }}
             />
             <Text
@@ -610,9 +634,9 @@ export default class HomePage extends SafeAreaBaseContainer {
                 fontWeight: GSFont.Regular,
                 color: '#7F7F7F',
                 lineHeight: 22,
-                marginLeft: 6
+                marginLeft: 6,
               }}
-            >{`${ tempValue }°C`}</Text>
+            >{`${tempValue}°C`}</Text>
           </View>
           <View
             style={{
@@ -620,7 +644,7 @@ export default class HomePage extends SafeAreaBaseContainer {
               width: '100%',
               justifyContent: 'center',
               alignItems: 'center',
-              width: contentWidth - 40
+              width: contentWidth - 40,
             }}
           >
             <View
@@ -631,7 +655,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                 borderRadius: 24,
                 flexDirection: 'row',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
               }}
             >
               <TouchableOpacity
@@ -642,7 +666,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                   ...IconStyles.size42,
                   width: 42,
                   justifyContent: 'center',
-                  alignItems: 'center'
+                  alignItems: 'center',
                 }}
               >
                 <Image
@@ -666,7 +690,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                   borderTopRightRadius: 2,
                   borderBottomLeftRadius: 2,
                   borderBottomRightRadius: 2,
-                  backgroundColor: 'white'
+                  backgroundColor: 'white',
                 }}
                 value={tempsRange.indexOf(tempValue)}
                 containerStyle={{ width: MainScreen.width - 152, height: 48 }}
@@ -684,7 +708,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                 style={{
                   ...IconStyles.size42,
                   justifyContent: 'center',
-                  alignItems: 'center'
+                  alignItems: 'center',
                 }}
                 onPress={() => {
                   this.setTemp(tempsRange.indexOf(tempValue) + 1);
@@ -708,7 +732,7 @@ export default class HomePage extends SafeAreaBaseContainer {
               justifyContent: 'flex-start',
               alignItems: 'center',
               width: contentWidth - 40,
-              height: 42
+              height: 42,
             }}
           >
             <Text style={styles.temControlText}>{GSLocalize('acid15')}</Text>
@@ -717,7 +741,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                 width: 1,
                 height: 14,
                 backgroundColor: '#999999',
-                marginLeft: 6
+                marginLeft: 6,
               }}
             />
             <Text
@@ -726,7 +750,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                 fontWeight: GSFont.Regular,
                 color: '#7F7F7F',
                 lineHeight: 22,
-                marginLeft: 6
+                marginLeft: 6,
               }}
             >
               {windValueName}
@@ -735,7 +759,7 @@ export default class HomePage extends SafeAreaBaseContainer {
           <View
             style={{
               ...styles.windIconsContainer,
-              paddingHorizontal: iSpeeds.length == 3 ? 10 : 0
+              paddingHorizontal: iSpeeds.length == 3 ? 10 : 0,
             }}
           >
             {iSpeeds.map((val, index) => {
@@ -751,14 +775,14 @@ export default class HomePage extends SafeAreaBaseContainer {
                     width:
                       (MainScreen.width -
                         (iSpeeds.length == 3 ? 20 + 24 : 24)) /
-                      iSpeeds.length
+                      iSpeeds.length,
                   }}
                 >
                   <Image
                     source={
                       windValue == tWind.value
-                        ? GSImage[`wind${ tWind.upper }Selected`]
-                        : GSImage[`wind${ tWind.upper }`]
+                        ? GSImage[`wind${tWind.upper}Selected`]
+                        : GSImage[`wind${tWind.upper}`]
                     }
                     style={IconStyles.size48}
                   />
@@ -766,8 +790,8 @@ export default class HomePage extends SafeAreaBaseContainer {
                     style={[
                       styles.windText,
                       {
-                        color: windValue == tWind.value ? '#57B3E7' : '#999999'
-                      }
+                        color: windValue == tWind.value ? '#57B3E7' : '#999999',
+                      },
                     ]}
                   >
                     {tWind.name}
@@ -785,7 +809,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                     marginLeft: (contentWidth - 25.0) / 2.0,
                     backgroundColor: '#E5E5E5',
                     width: 1,
-                    height: 48
+                    height: 48,
                   }}
                 />
               )
@@ -804,7 +828,7 @@ export default class HomePage extends SafeAreaBaseContainer {
               titleStyle={{
                 color: '#333333',
                 fontSize: 16,
-                fontWeight: GSFont.Semibold
+                fontWeight: GSFont.Semibold,
               }}
               cardType={MHCard.CARD_TYPE.SWITCH}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.ALL}
@@ -820,22 +844,21 @@ export default class HomePage extends SafeAreaBaseContainer {
                 width: MainScreen.width - 40,
                 height: 80,
                 backgroundColor: 'transparent',
-                marginTop: 0
+                marginTop: 0,
               }}
             />
             {!powerOn && ACTurnOffMask}
           </View>
         )}
         {/* 扫风 */}
-        {
-          // swingType == 2 &&
+        {swingType == 2 && (
           <View style={styles.acLightContainer}>
             <MHCard
               title={GSLocalize('acid20')}
               titleStyle={{
                 color: '#333333',
                 fontSize: 16,
-                fontWeight: GSFont.Semibold
+                fontWeight: GSFont.Semibold,
               }}
               cardType={MHCard.CARD_TYPE.SWITCH}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.ALL}
@@ -851,12 +874,12 @@ export default class HomePage extends SafeAreaBaseContainer {
                 width: MainScreen.width - 40,
                 height: 80,
                 backgroundColor: 'transparent',
-                marginTop: 0
+                marginTop: 0,
               }}
             />
             {!powerOn && ACTurnOffMask}
           </View>
-        }
+        )}
         {/* 模式-制冷，制热... */}
         <View style={styles.modelContainer}>
           <View
@@ -866,7 +889,7 @@ export default class HomePage extends SafeAreaBaseContainer {
               justifyContent: 'flex-start',
               alignItems: 'center',
               width: contentWidth - 40,
-              height: 42
+              height: 42,
             }}
           >
             <Text style={styles.temControlText}>{GSLocalize('acid21')}</Text>
@@ -875,7 +898,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                 width: 1,
                 height: 14,
                 backgroundColor: '#999999',
-                marginLeft: 6
+                marginLeft: 6,
               }}
             />
             <Text
@@ -884,7 +907,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                 fontWeight: GSFont.Regular,
                 color: '#7F7F7F',
                 lineHeight: 22,
-                marginLeft: 6
+                marginLeft: 6,
               }}
             >
               {modeName}
@@ -893,7 +916,7 @@ export default class HomePage extends SafeAreaBaseContainer {
           <View
             style={{
               ...styles.modelIconsContainer,
-              paddingHorizontal: iModes.length == 3 ? 10 : 0
+              paddingHorizontal: iModes.length == 3 ? 10 : 0,
             }}
           >
             {iModes.map((val) => {
@@ -906,14 +929,14 @@ export default class HomePage extends SafeAreaBaseContainer {
                   }}
                   style={{
                     ...styles.modelIconsCell,
-                    width: (MainScreen.width - 24) / iModes.length
+                    width: (MainScreen.width - 24) / iModes.length,
                   }}
                 >
                   <Image
                     source={
                       showMode == tMode.value
-                        ? GSImage[`ACMode${ tMode.upper }On`]
-                        : GSImage[`ACMode${ tMode.upper }`]
+                        ? GSImage[`ACMode${tMode.upper}On`]
+                        : GSImage[`ACMode${tMode.upper}`]
                     }
                     style={IconStyles.size48}
                   />
@@ -929,7 +952,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                     marginLeft: (contentWidth - 25.0) / 2.0,
                     backgroundColor: '#E5E5E5',
                     width: 1,
-                    height: 42
+                    height: 42,
                   }}
                 />
               )
@@ -938,13 +961,13 @@ export default class HomePage extends SafeAreaBaseContainer {
           {(!powerOn || unsupportControllerId) && ACTurnOffMask}
         </View>
         {/* 舒适模式 */}
-        <View style={styles.acLightContainer}>
+        {/* <View style={styles.acLightContainer}>
           <MHCard
             title={GSLocalize('acid135')}
             titleStyle={{
               color: '#333333',
               fontSize: 16,
-              fontWeight: GSFont.Semibold
+              fontWeight: GSFont.Semibold,
             }}
             cardType={MHCard.CARD_TYPE.NORMAL}
             cardRadiusType={MHCard.CARD_RADIUS_TYPE.ALL}
@@ -962,7 +985,7 @@ export default class HomePage extends SafeAreaBaseContainer {
               width: contentWidth,
               height: 82,
               backgroundColor: 'white',
-              marginTop: 0
+              marginTop: 0,
             }}
           />
           <TouchableOpacity
@@ -974,7 +997,7 @@ export default class HomePage extends SafeAreaBaseContainer {
               backgroundColor: hexToRGBA('#57B3E7', 0.1),
               right: 20,
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
             }}
             onPress={() => {
               this.onPressComfyMode();
@@ -984,14 +1007,14 @@ export default class HomePage extends SafeAreaBaseContainer {
               style={{
                 color: hexToRGBA('#57B3E7', isComfyMode ? 0.3 : 1),
                 fontSize: 13,
-                fontWeight: GSFont.Semibold
+                fontWeight: GSFont.Semibold,
               }}
             >
               {isComfyMode ? GSLocalize('acid134') : GSLocalize('acid126')}
             </Text>
           </TouchableOpacity>
           {(!powerOn || unsupportControllerId) && ACTurnOffMask}
-        </View>
+        </View> */}
 
         {/* 速冷模式 */}
         <View style={styles.acLightContainer}>
@@ -1000,7 +1023,7 @@ export default class HomePage extends SafeAreaBaseContainer {
             titleStyle={{
               color: '#333333',
               fontSize: 16,
-              fontWeight: GSFont.Semibold
+              fontWeight: GSFont.Semibold,
             }}
             cardType={MHCard.CARD_TYPE.NORMAL}
             cardRadiusType={MHCard.CARD_RADIUS_TYPE.ALL}
@@ -1017,7 +1040,7 @@ export default class HomePage extends SafeAreaBaseContainer {
               width: contentWidth,
               height: 82,
               backgroundColor: 'white',
-              marginTop: 0
+              marginTop: 0,
             }}
             onPress={() => {
               this.onFastCoolingPress();
@@ -1025,7 +1048,38 @@ export default class HomePage extends SafeAreaBaseContainer {
           />
           {(!powerOn || unsupportControllerId) && ACTurnOffMask}
         </View>
-
+        {/* 小爱语音 */}
+        <View style={styles.acLightContainer}>
+          <MHCard
+            title={GSLocalize('aiCase')}
+            titleStyle={{
+              color: '#333333',
+              fontSize: 16,
+              fontWeight: GSFont.Semibold,
+            }}
+            cardType={MHCard.CARD_TYPE.NORMAL}
+            cardRadiusType={MHCard.CARD_RADIUS_TYPE.ALL}
+            onValueChange={(value) => console.log(value)}
+            switchValue={true}
+            tintColor="#E5E5E5"
+            onTintColor="#57B3E7"
+            showShadow={true}
+            marginTop={0}
+            icon={isVoiceDevice ? GSImage.xiaoaiControlOn : GSImage.xiaoaiControl}
+            iconStyle={{ ...IconStyles.size42 }}
+            cardStyle={{
+              borderRadius: 12,
+              width: contentWidth,
+              height: 82,
+              backgroundColor: 'white',
+              marginTop: 0,
+            }}
+            onPress={() => {
+              this.onPressAiControl();
+            }}
+          />
+          {(!isVoiceDevice) && ACTurnOffMask}
+        </View>
         {/* 安睡模式，定时，延迟关空调 */}
         <View style={styles.sleepModeContainer}>
           <View>
@@ -1049,12 +1103,13 @@ export default class HomePage extends SafeAreaBaseContainer {
                 borderTopLeftRadius: 12,
                 marginTop: 0,
                 height: 82,
-                backgroundColor: 'transparent'
+                backgroundColor: 'transparent',
               }}
             />
             {unsupportControllerId && ACTurnOffMask}
           </View>
           <Separator style={{ height: 1, width: MainScreen.width - 64 }} />
+          {/* 定时 */}
           <View>
             <MHCard
               title={GSLocalize('acid28')}
@@ -1064,7 +1119,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                 color: '#666666',
                 fontSize: 13,
                 lineHeight: 16,
-                fontWeight: GSFont.Regular
+                fontWeight: GSFont.Regular,
               }}
               onValueChange={(value) => console.log(value)}
               switchValue={this.state.value}
@@ -1089,7 +1144,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                 color: '#666666',
                 fontSize: 13,
                 lineHeight: 16,
-                fontWeight: GSFont.Regular
+                fontWeight: GSFont.Regular,
               }}
               switchValue={this.state.value}
               onTintColor="#67b688"
@@ -1109,7 +1164,7 @@ export default class HomePage extends SafeAreaBaseContainer {
                 borderBottomLeftRadius: 12,
                 backgroundColor: 'white',
                 marginTop: 0,
-                height: 82
+                height: 82,
               }}
             />
             {!powerOn && ACTurnOffMask}
@@ -1130,7 +1185,7 @@ const ACTurnOffMask = (
       width: '100%',
       height: '100%',
       backgroundColor: hexToRGBA('#ffffff', 0.7),
-      borderRadius: 12
+      borderRadius: 12,
     }}
   />
 );
@@ -1141,7 +1196,7 @@ const styles = StyleSheet.create({
     width: MainScreen.width,
     height: '100%',
     alignItems: 'center',
-    marginBottom: 40
+    marginBottom: 40,
   },
 
   // 头部的背景
@@ -1150,7 +1205,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginLeft: 0,
     height: 812,
-    position: 'absolute'
+    position: 'absolute',
   },
 
   // 大温度
@@ -1160,7 +1215,7 @@ const styles = StyleSheet.create({
     marginTop: 60, // mixin.zoom(60),
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   temText: {
@@ -1168,7 +1223,7 @@ const styles = StyleSheet.create({
     fontSize: 106,
     lineHeight: 148,
     fontWeight: GSFont.Medium,
-    marginLeft: 15
+    marginLeft: 15,
   },
 
   temUit: {
@@ -1178,7 +1233,7 @@ const styles = StyleSheet.create({
     width: 31,
     height: 40,
     lineHeight: 40,
-    marginTop: -60
+    marginTop: -60,
   },
 
   stateContiner: {
@@ -1186,7 +1241,7 @@ const styles = StyleSheet.create({
     width: MainScreen.width - 24.0,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
 
   stateText: {
@@ -1194,28 +1249,28 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: GSFont.Regular,
     textAlign: 'center',
-    lineHeight: 22
+    lineHeight: 22,
   },
 
   consumptionCellContainer: {
     marginTop: mixin.zoom(80),
 
     borderRadius: 12,
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
   },
   consumptionCellContainerTop: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     width: MainScreen.width - 24,
-    height: 96
+    height: 96,
   },
   consumptionCellMore: {
     color: '#7F7F7F',
     fontSize: 14,
     marginTop: 18,
     marginBottom: 18,
-    textAlign: 'center'
+    textAlign: 'center',
   },
 
   consumptionCell: {
@@ -1223,7 +1278,7 @@ const styles = StyleSheet.create({
     height: 96,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   consumptionCellValue: {
@@ -1231,7 +1286,7 @@ const styles = StyleSheet.create({
     color: '#4C4C4C',
     lineHeight: 32,
     height: 40,
-    marginTop: 20
+    marginTop: 20,
   },
 
   consumptionCellDes: {
@@ -1241,7 +1296,7 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontSize: 12,
     color: '#7F7F7F',
-    fontWeight: GSFont.Regular
+    fontWeight: GSFont.Regular,
   },
 
   // 开关
@@ -1253,7 +1308,7 @@ const styles = StyleSheet.create({
     width: MainScreen.width - 24,
     height: 82,
     borderRadius: 12,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
 
   powerImage: {
@@ -1261,7 +1316,7 @@ const styles = StyleSheet.create({
     height: 42,
     marginLeft: 20,
     borderRadius: 20,
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
 
   powerText: {
@@ -1269,7 +1324,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'black',
     fontWeight: 'bold',
-    lineHeight: 20
+    lineHeight: 20,
   },
 
   // 舒适，速冷
@@ -1281,7 +1336,7 @@ const styles = StyleSheet.create({
     width: MainScreen.width - 24,
     height: 96,
     borderRadius: 12,
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
   },
 
   comfyCell: {
@@ -1289,7 +1344,7 @@ const styles = StyleSheet.create({
     height: 96,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   // 温度调节
@@ -1300,21 +1355,21 @@ const styles = StyleSheet.create({
     width: MainScreen.width - 24,
     height: 134,
     borderRadius: 12,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
 
   temControlText: {
     fontWeight: GSFont.Semibold,
     fontSize: 16,
     lineHeight: 22,
-    height: 22
+    height: 22,
   },
 
   temControlBar: {
     marginLeft: 20,
     marginRight: 20,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   // 风速
@@ -1326,7 +1381,7 @@ const styles = StyleSheet.create({
     width: contentWidth,
     height: 160,
     borderRadius: 12,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
 
   windIconsContainer: {
@@ -1334,14 +1389,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     width: MainScreen.width - 40,
-    height: 118
+    height: 118,
   },
 
   windIconsCell: {
     height: 110,
     justifyContent: 'center',
     alignItems: 'center',
-    width: (MainScreen.width - 24) / 4.0
+    width: (MainScreen.width - 24) / 4.0,
   },
 
   windIcon: {
@@ -1350,7 +1405,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     borderWidth: 1,
     borderColor: 'gray',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
 
   windText: {
@@ -1358,7 +1413,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#999999',
     fontWeight: GSFont.Semibold,
-    lineHeight: 18
+    lineHeight: 18,
   },
 
   // 速冷
@@ -1370,7 +1425,7 @@ const styles = StyleSheet.create({
     width: MainScreen.width - 24,
     height: 82,
     borderRadius: 12,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
     // paddingLeft: 20,
   },
 
@@ -1383,7 +1438,7 @@ const styles = StyleSheet.create({
     width: contentWidth,
     height: 128,
     borderRadius: 12,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
 
   modelIconsContainer: {
@@ -1392,21 +1447,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: MainScreen.width - 40,
     height: 86,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
 
   modelIconsCell: {
     height: 86,
     justifyContent: 'center',
     alignItems: 'center',
-    width: (MainScreen.width - 24) / 5.0
+    width: (MainScreen.width - 24) / 5.0,
   },
 
   modelCellsContainer: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
 
   // 安睡模式
@@ -1417,12 +1472,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: 'white',
     marginBottom: 20,
-    width: MainScreen.width - 24
+    width: MainScreen.width - 24,
   },
 
   sleepModeTitle: {
     color: '#333333',
     fontWeight: GSFont.Semibold,
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 });

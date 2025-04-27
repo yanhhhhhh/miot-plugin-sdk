@@ -15,13 +15,17 @@
  *
  */
 // new
-import RootDevice, { DeviceEvent as MIOTDeviceEvent } from './device/BasicDevice';
-import ClassicBluetoothFactory, { ClassicBluetoothEvent as MIOTClassicBluetoothEvent } from './device/bluetooth/ClassicDevice';
+import RootDevice, {
+  DeviceEvent as MIOTDeviceEvent,
+} from './device/BasicDevice';
+import ClassicBluetoothFactory, {
+  ClassicBluetoothEvent as MIOTClassicBluetoothEvent,
+} from './device/bluetooth/ClassicDevice';
 import BluetoothFactory from './device/bluetooth';
 import { BluetoothEvent as MIOTBluetoothEvent } from './device/bluetooth/BluetoothDevice';
 import HostInstance, { HostEvent as HostEventNames } from './Host';
-import SystemInstance from "./system/";
-import { ECCCrypto as ECCCryptoClass } from "./host/crypto";
+import SystemInstance from './system/';
+import { ECCCrypto as ECCCryptoClass } from './host/crypto';
 import { AudioEvent as AudioEventNames } from './host/audio';
 import { FileEvent as FileEventNames } from './host/file';
 import { MemoryWarningEvent as MemoryWarningEventNames } from './system/memory';
@@ -29,14 +33,22 @@ import { AccelerometerChangeEvent as AccelerometerChangeEventNames } from './sys
 import { CompassChangeEvent as CompassChangeEventNames } from './system/compass';
 import { VolumeChangeEvent as VolumeChangeEventNames } from './system/volume';
 import { GyroscopeChangeEvent as GyroscopeChangeEventNames } from './system/gyroscope';
-import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames } from './Package';
-import { PrivacyEvent as PrivacyEventNames, CLOUD_PRIVACY_EVENT_TYPE , UserExpPlanEvent as UserExpPlanEventNames, USER_EXP_PLAN_EVENT_TYPE} from './utils/protocol-helper';
-import { RootDeviceProperties } from "./Properties";
+import PackageInstance, {
+  Entrance as Entrances,
+  PackageEvent as PackageEventNames,
+} from './Package';
+import {
+  PrivacyEvent as PrivacyEventNames,
+  CLOUD_PRIVACY_EVENT_TYPE,
+  UserExpPlanEvent as UserExpPlanEventNames,
+  USER_EXP_PLAN_EVENT_TYPE,
+} from './utils/protocol-helper';
+import { RootDeviceProperties } from './Properties';
 import ResourcesPack from './resources';
 import ServiceInstance from './Service';
 import { SceneType as SceneTypeNames } from './service/scene';
 import DarkModeFactory from './darkmode';
-export const API_LEVEL = 10089
+export const API_LEVEL = 10089;
 /**
  * 插件包基本配置
  * {@link module:miot/Package}
@@ -81,7 +93,7 @@ export const USER_EXP_PLAN_EVENT_TYPES = USER_EXP_PLAN_EVENT_TYPE;
  * @export
  */
 export const Device = RootDevice;
-console.log(device);
+console.log('-------------------------Device', Device);
 /**
  * 当前设备
  * {@link module:miot/Device~DeviceEvent}
@@ -171,10 +183,27 @@ import * as Utils from './utils';
  * @export
  */
 export default {
-  Device, DeviceEvent, Bluetooth, BluetoothEvent, ClassicBluetooth, ClassicBluetoothEvent,
-  API_LEVEL, Package, PackageEvent, Entrance, DeviceProperties,
-  Service, Host, System, HostEvent, Resources, ECCCrypto,
+  Device,
+  DeviceEvent,
+  Bluetooth,
+  BluetoothEvent,
+  ClassicBluetooth,
+  ClassicBluetoothEvent,
+  API_LEVEL,
+  Package,
+  PackageEvent,
+  Entrance,
+  DeviceProperties,
+  Service,
+  Host,
+  System,
+  HostEvent,
+  Resources,
+  ECCCrypto,
   SceneType,
-  FileEvent, AudioEvent, MemoryWarningEvent,
-  Utils, DarkMode
+  FileEvent,
+  AudioEvent,
+  MemoryWarningEvent,
+  Utils,
+  DarkMode,
 };

@@ -1,6 +1,6 @@
 /*
- * @Author: huayou.fu 
- * @Created date: 2022-01-10 10:15:02 
+ * @Author: huayou.fu
+ * @Created date: 2022-01-10 10:15:02
  */
 export const GSImage = {
   powerOn: require('../../../resources/images/powerOn.png'), // 电源开
@@ -9,7 +9,7 @@ export const GSImage = {
   comfyOn: require('../../../resources/images/comfyOn.png'), // 舒适开
   fastCooling: require('../../../resources/images/fastCooling.png'), // 速冷关
   fastCoolingOn: require('../../../resources/images/fastCoolingOn.png'), // 速冷开
-  windAuto: require('../../../resources/images/windAuto.png'),  
+  windAuto: require('../../../resources/images/windAuto.png'),
   windLow: require('../../../resources/images/windLow.png'),
   windMiddle: require('../../../resources/images/windMiddle.png'),
   windHigh: require('../../../resources/images/windHigh.png'),
@@ -57,19 +57,21 @@ export const GSImage = {
   // 温度加减
   temperatureAdd: require('../../../resources/images/temperatureAdd.png'),
   temperatureMinus: require('../../../resources/images/temperatureMinus.png'),
-    
+
   // 右小箭头
   arrowRight: require('../../../resources/images/arrowRight.png'),
-  infoGreen: require('../../../resources/images/infoGreen.png'),
+  // infoGreen: require('../../../resources/images/infoGreen.png'),
   lightning: require('../../../resources/images/lightning.png'),
   // 开机速冷 图表
   fastCoolingChart: require('../../../resources/images/fastCoolingChart.png'),
   // 右小箭头-绿色
-  rightArrowGreen: require('../../../resources/images/rightArrowGreen.png'),
+  rightArrow: require('../../../resources/images/rightArrow.png'),
   search: require('../../../resources/images/search.png'),
   MatchCodeControl: require('../../../resources/images/MatchCodeControl.png'),
   MatchCodeLeft: require('../../../resources/images/MatchCodeLeft.png'),
   MatchCodeRight: require('../../../resources/images/MatchCodeRight.png'),
   MatchCodeSuccess: require('../../../resources/images/MatchCodeSuccess.png'),
-  MatchCodeFail: require('../../../resources/images/MatchCodeFail.png')
+  MatchCodeFail: require('../../../resources/images/MatchCodeFail.png'),
+  xiaoaiControl: require('../../../resources/images/xiaoaiControl.png'),
+  xiaoaiControlOn: require('../../../resources/images/xiaoaiControlOn.png')
 };
