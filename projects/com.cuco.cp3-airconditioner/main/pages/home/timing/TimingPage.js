@@ -31,8 +31,8 @@ export default class TimingPage extends SafeAreaBaseContainer {
             key: NavigationBar.ICON.BACK,
             onPress: () => {
               navigatePopPage(this);
-            },
-          },
+            }
+          }
         ]}
         title={'定时'}
         onPressTitle={() => {}}
@@ -46,6 +46,6 @@ const styles = StyleSheet.create({
   container: {
     width: MainScreen.width,
     height: '100%',
-    backgroundColor: '#4d85fe',
-  },
+    backgroundColor: '#4d85fe'
+  }
 });

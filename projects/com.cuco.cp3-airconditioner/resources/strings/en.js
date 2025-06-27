@@ -156,5 +156,5 @@ module.exports = {
   acid137: 'Select month',
 
   viewMore: 'View more',
-  aiCase: 'Xiaoai Control',
+  aiCase: 'Xiaoai Control'
 };

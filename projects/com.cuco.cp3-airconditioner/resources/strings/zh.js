@@ -150,5 +150,5 @@ module.exports = {
   acid137: '选择月份',
 
   viewMore: '查看更多',
-  aiCase: '小爱语控',
+  aiCase: '小爱语控'
 };
