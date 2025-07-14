@@ -6,7 +6,7 @@
 export const GSSpec = {
   propVAL: (obj) => {
     const { siid, piid } = obj;
-    return `prop.${siid}.${piid}`;
+    return `prop.${ siid }.${ piid }`;
   },
 
   // 继电器开关 (这个功能暂无)
@@ -16,8 +16,8 @@ export const GSSpec = {
       siid: 2,
       piid: 1,
       name: 'on',
-      value: false, // 默认值false
-    },
+      value: false // 默认值false
+    }
   },
   // air-conditioner 空调相关操作
   siid3: {
@@ -27,7 +27,7 @@ export const GSSpec = {
       piid: 1,
       name: 'on',
       value: false, // 默认值false
-      pVal: 'prop.3.1',
+      pVal: 'prop.3.1'
     },
     // 模式
     mode: {
@@ -35,7 +35,7 @@ export const GSSpec = {
       piid: 2,
       name: 'mode',
       value: 0, // 0 :制冷 1，制热，2，自动，3，送风，4,除湿
-      pVal: 'prop.3.2',
+      pVal: 'prop.3.2'
     },
     // 设定温度
     target_temperature: {
@@ -43,15 +43,15 @@ export const GSSpec = {
       piid: 4,
       name: 'target-temperature',
       value: 16, // 16-32
-      pVal: 'prop.3.4',
+      pVal: 'prop.3.4'
     },
     sleep_mode: {
       siid: 3,
       piid: 11,
       name: 'sleep-mode',
       value: false, // bool
-      pVal: 'prop.3.11',
-    },
+      pVal: 'prop.3.11'
+    }
   },
 
   // 扫风功能 开启，关闭
@@ -62,7 +62,7 @@ export const GSSpec = {
       piid: 1,
       name: 'on',
       value: false, // 默认值false
-      pVal: 'prop.4.1',
+      pVal: 'prop.4.1'
     },
     // 风速
     fan_level: {
@@ -70,7 +70,7 @@ export const GSSpec = {
       piid: 2,
       name: 'fan-level',
       value: 0, // 0:自动，1:一档，2:二档，3:三档，
-      pVal: 'prop.4.2',
+      pVal: 'prop.4.2'
     },
     // 左右摆风
     horizontal_swing: {
@@ -78,7 +78,7 @@ export const GSSpec = {
       piid: 3,
       name: 'horizontal-swing',
       value: false, // 默认值false
-      pVal: 'prop.4.3',
+      pVal: 'prop.4.3'
     },
     // 上下摆风
     vertical_swing: {
@@ -86,8 +86,8 @@ export const GSSpec = {
       piid: 4,
       name: 'vertical-swing',
       value: false, // 默认值false
-      pVal: 'prop.4.4',
-    },
+      pVal: 'prop.4.4'
+    }
   },
 
   // power-consumption  功耗参数1
@@ -97,55 +97,55 @@ export const GSSpec = {
       siid: 7,
       piid: 1,
       name: 'power-consumption',
-      value: 0, // 默认值0, 范围 0 - 65535， 步长： 0.01
+      value: 0 // 默认值0, 范围 0 - 65535， 步长： 0.01
     },
     // 电流
     electric_current: {
       siid: 7,
       piid: 2,
       name: 'electric-current',
-      value: 0, // 默认值0, 范围 0 - 65535， 步长： 0.1
+      value: 0 // 默认值0, 范围 0 - 65535， 步长： 0.1
     },
     // 电压
     voltage: {
       siid: 7,
       piid: 3,
       name: 'voltage',
-      value: 0, // 默认值0, 范围 0 - 65535， 步长： 0.1
+      value: 0 // 默认值0, 范围 0 - 65535， 步长： 0.1
     },
     // 电功率
     electric_power: {
       siid: 7,
       piid: 4,
       name: 'electric_power',
-      value: 0, // 默认值0, 范围 0 - 65535， 步长： 0.1
-    },
+      value: 0 // 默认值0, 范围 0 - 65535， 步长： 0.1
+    }
   },
   // 开机速冷1
   siid8: {
     // 速冷模式开关
     status: {
-      siid: 8,
+      siid: 11,
       piid: 1,
       name: 'status',
-      value: false, // 默认值 false
+      value: false // 默认值 false
     },
     // 速冷保存时间
     keep_time: {
-      siid: 8,
+      siid: 11,
       piid: 2,
       name: 'keep-time',
-      value: 1, // 默认值 1
-    },
+      value: 1 // 默认值 1
+    }
   },
   // sleep-mode 安睡模式1
   siid9: {
     // 安睡模式开关
     status: {
-      siid: 9,
+      siid: 10,
       piid: 1,
       name: 'status',
-      value: false, // 默认值 false
+      value: false // 默认值 false
     },
 
     // 安睡模式参数
@@ -159,11 +159,11 @@ export const GSSpec = {
      * 例如： 0;1439;20;20;20;7,1,2,3,4,5,6;1;1;2;50
      */
     model_info: {
-      siid: 9,
+      siid: 10,
       piid: 2,
       name: 'model-info',
-      value: '', // 默认值 ''
-    },
+      value: '' // 默认值 ''
+    }
   },
   // siid  (10)   indicator-light  继电器指示灯
   siid10: {
@@ -172,7 +172,7 @@ export const GSSpec = {
       siid: 10,
       piid: 1,
       name: 'status',
-      value: false, // 默认值 false
+      value: false // 默认值 false
     },
 
     // 勿扰模式开关
@@ -180,7 +180,7 @@ export const GSSpec = {
       siid: 10,
       piid: 2,
       name: 'model',
-      value: false, // 默认值 false false/true
+      value: false // 默认值 false false/true
     },
 
     // 开始时间
@@ -188,7 +188,7 @@ export const GSSpec = {
       siid: 10,
       piid: 3,
       name: 'start-time',
-      value: 0, // 默认值 0   (0 - 1440) 步长： 1
+      value: 0 // 默认值 0   (0 - 1440) 步长： 1
     },
 
     // 结束时间
@@ -196,8 +196,8 @@ export const GSSpec = {
       siid: 10,
       piid: 4,
       name: 'end-time',
-      value: 0, // 默认值 0   (0 - 1440) 步长： 1
-    },
+      value: 0 // 默认值 0   (0 - 1440) 步长： 1
+    }
   },
   // 报警推送
   siid11: {
@@ -206,15 +206,15 @@ export const GSSpec = {
       siid: 11,
       piid: 1,
       name: 'overload',
-      value: false, // 默认值false
+      value: false // 默认值false
     },
     //	过温保护 开关
     temperature_high: {
       siid: 11,
       piid: 2,
       name: 'temperature-high',
-      value: false, // 默认值false
-    },
+      value: false // 默认值false
+    }
   },
 
   // air condition info 空调控制参数
@@ -224,7 +224,7 @@ export const GSSpec = {
       siid: 12,
       piid: 1,
       name: 'is-insert-air',
-      value: true, // 默认值true
+      value: true // 默认值true
     },
 
     // 控制id
@@ -232,7 +232,7 @@ export const GSSpec = {
       siid: 9,
       piid: 2,
       name: 'ir-control-id',
-      value: 0, // 默认值0（1 到 2147483647）
+      value: 0 // 默认值0（1 到 2147483647）
     },
 
     /**
@@ -248,7 +248,7 @@ export const GSSpec = {
       siid: 12,
       piid: 3,
       name: 'model-temp-speed',
-      value: 'P0_M0_T26_S1_W0', // 默认值P0_M0_T26_S1_W0 （1 到 2147483647）
+      value: 'P0_M0_T26_S1_W0' // 默认值P0_M0_T26_S1_W0 （1 到 2147483647）
     },
 
     // 空调指示灯 打开/关闭
@@ -257,7 +257,7 @@ export const GSSpec = {
       piid: 4,
       name: 'led-status',
       value: false, // 默认值false
-      pVal: 'prop.12.4',
+      pVal: 'prop.12.4'
     },
 
     // 支持功能获取
@@ -265,7 +265,7 @@ export const GSSpec = {
       siid: 12,
       piid: 5,
       name: 'support-key',
-      value: '', // 默认值 ''
+      value: '' // 默认值 ''
     },
 
     // 控制id
@@ -273,7 +273,7 @@ export const GSSpec = {
       siid: 12,
       piid: 6,
       name: 'brand-id',
-      value: 0, // 默认值0（1 到 2147483647）
+      value: 0 // 默认值0（1 到 2147483647）
     },
 
     // 舒适模式函数
@@ -281,9 +281,9 @@ export const GSSpec = {
       siid: 12,
       aiid: 1,
       name: 'cozy-mode',
-      parmas: [],
-    },
-  },
+      parmas: []
+    }
+  }
 };
 
 /**
