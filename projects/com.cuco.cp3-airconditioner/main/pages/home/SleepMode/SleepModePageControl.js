@@ -133,7 +133,7 @@ class ISleepModePageControl {
           const { success, siid, piid, value } = val;
           if (!!success && siid == GSSpec.siid9.status.siid && piid == GSSpec.siid9.status.piid) {
             results['on'] = value;
-          } else if (!!success && siid == GSSpec.siid9.model_info.siid && piid == GSSpec.siid9.model_info.piid) {
+          } else if (!!success && siid == GSSpec.siid9.model_info.siid && piid == GSSpec.siid9.model_info.piid&&value.indexOf(';') !== -1) {
             let vals = value.split(';');
             results['startTime'] = parseInt(`${ vals[0] }`); 
             results['endTime'] = parseInt(`${ vals[1] }`);
